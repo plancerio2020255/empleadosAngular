@@ -8,6 +8,7 @@ import { VerEmpleadosComponent } from './components/ver-empleados/ver-empleados.
 import { AgregarEmpleadosComponent } from './components/agregar-empleados/agregar-empleados.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { InicioComponent } from './components/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RegisterComponent } from './components/register/register.component';
     VerEmpleadosComponent,
     AgregarEmpleadosComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

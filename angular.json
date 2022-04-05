@@ -31,12 +31,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/styles.sass"
             ],
             "scripts": [
-              "node_modules/@popperjs/core/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "src/assets/customJS/custom.js"
             ]
           },
           "configurations": {

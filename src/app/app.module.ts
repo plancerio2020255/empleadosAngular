@@ -6,13 +6,17 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { VerEmpleadosComponent } from './components/ver-empleados/ver-empleados.component';
 import { AgregarEmpleadosComponent } from './components/agregar-empleados/agregar-empleados.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     VerEmpleadosComponent,
-    AgregarEmpleadosComponent
+    AgregarEmpleadosComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

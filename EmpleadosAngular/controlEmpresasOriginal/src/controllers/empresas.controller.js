@@ -58,14 +58,14 @@ function AgregarEmpresa(req, res) {
     var parametros = req.body;
     var empresasModel = new Empresas();
 
-    if (req.user.rol == 'ROL_SuperAdmin') {
+    if (req.user.rol == 'SuperAdmin') {
 
-        if (parametros.nombreEmpresa && parametros.tipEmpresa &&
+        if (parametros.nombreEmpresa && parametros.tipoEmpresa &&
             parametros.email && parametros.password) {
             empresasModel.nombreEmpresa = parametros.nombreEmpresa;
             empresasModel.tipoEmpresa = parametros.tipoEmpresa;
             empresasModel.email = parametros.email;
-            empresasModel.rol = 'ROL_EMPRESA';
+            empresasModel.rol = 'Empresa';
 
 
             Empresas.find({ email: parametros.email }, (err, empresaEncontrada) => {

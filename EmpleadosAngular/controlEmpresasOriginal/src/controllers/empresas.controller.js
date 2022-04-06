@@ -28,7 +28,31 @@ function RegistrarAdministrador(req, res) {
 
 }
 
+
+function Login(req, res) {
+    var parametros = req.body;
+    Usuario.findOne({ email: parametros.email }, (err, usuarioEncontrado) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (usuarioEncontrado) {
+            bcrypt.compare(parametros.password, usuarioEncontrado.password,
+                (err, verificacionPassword) => {
+                    if (verificacionPassword) {
+                        return res.status(200)
+                            .send({ token: jwt.crearToken(usuarioEncontrado) })
+                    } else {
+                        return res.status(500)
+                            .send({ mensaje: 'La contrasena no coincide.' })
+                    }
+                })
+        } else {
+            return res.status(500)
+                .send({ mensaje: 'El usuario, no se ha podido identificar' })
+        }
+    })
+}
+
 module.exports = {
-    RegistrarAdministrador
+    RegistrarAdministrador,
+    Login
    
 }

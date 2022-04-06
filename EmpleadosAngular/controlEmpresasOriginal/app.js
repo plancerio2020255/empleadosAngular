@@ -4,8 +4,8 @@ const app = express();
 
 
 
-const usuarioRoutes = require('./src/routes/usuario.routes');
-const empleadoRoutes = require('./src/routes/empleado.routes');
+/*const usuarioRoutes = require('./src/routes/usuario.routes');
+const empleadoRoutes = require('./src/routes/empleado.routes');*/
 
 
 
@@ -14,6 +14,6 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use('/api', usuarioRoutes, empleadoRoutes);
+app.use('/api'); //, usuarioRoutes, empleadoRoutes
 
 module.exports = app;

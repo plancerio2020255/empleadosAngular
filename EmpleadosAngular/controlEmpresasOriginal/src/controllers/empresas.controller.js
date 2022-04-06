@@ -63,7 +63,7 @@ function AgregarEmpresa(req, res) {
         if (parametros.nombreEmpresa && parametros.tipEmpresa &&
             parametros.email && parametros.password) {
             empresasModel.nombreEmpresa = parametros.nombreEmpresa;
-            empresasModel.tipEmpresa = parametros.tipEmpresa;
+            empresasModel.tipoEmpresa = parametros.tipoEmpresa;
             empresasModel.email = parametros.email;
             empresasModel.rol = 'ROL_EMPRESA';
 

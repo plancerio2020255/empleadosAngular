@@ -3,51 +3,17 @@ const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../services/jwt');
 
 
-//PRUEBA DE REGISTRAR ADMIN prueba1
-/*function RegistrarAdministrador(req, res) {
-    var parametros = req.body;
-    var usuarioModel = new Usuario();
-
-
-    usuarioModel.nombre = 'ADMIN';
-    usuarioModel.apellido = 'ADMIN';
-    usuarioModel.email = 'ADMIN';
-    usuarioModel.rol = 'ROL_ADMIN';
-    usuarioModel.imagen = null;
-
-    Usuario.find({ email: 'ADMIN' }, (err, usuarioEncontrado) => {
-        if (usuarioEncontrado.length == 0) {
-
-            bcrypt.hash('123456', null, null, (err, passwordEncriptada) => {
-                usuarioModel.password = passwordEncriptada;
-
-                usuarioModel.save((err, usuarioGuardado) => {
-                    if (err) return res.status(500)
-                        .send({ mensaje: 'Error en la peticion' });
-                    if (!usuarioGuardado) return res.status(500)
-                        .send({ mensaje: 'Error al agregar el Usuario' });
-
-                    return res.status(200).send({ usuario: usuarioGuardado });
-                });
-            });
-        } else {
-            return res.status(500)
-                .send({ mensaje: 'Este correo, ya  se encuentra utilizado' });
-        }
-    })
-
-}*/
 //--------------------------------------Registro Administrador Prueba 2
 function RegistrarAdministrador(req, res) {
     var usuarioModel = new Usuario();
 
-    Usuario.find({rol: 'ROL_ADMIN'}, (err, usuarioEncontrado) => {
+    Usuario.find({rol: 'ROL_SuperAdmin'}, (err, usuarioEncontrado) => {
         if (usuarioEncontrado.length > 0) {
-            return console.log({mensaje: "Ya existe el ADMIN"})
+            return console.log({mensaje: "Ya existe el SuperAdmin"})
         } else {
-            usuarioModel.nombre = 'ADMIN';
-            usuarioModel.email = 'ADMIN';
-            usuarioModel.rol = 'ROL_ADMIN';
+            usuarioModel.nombre = 'SuperAdmin';
+            usuarioModel.email = 'SuperAdmin';
+            usuarioModel.rol = 'ROL_SuperAdmin';
             bcrypt.hash('123456', null, null, (err, passwordEncriptada) => {
                 usuarioModel.password = passwordEncriptada;
 

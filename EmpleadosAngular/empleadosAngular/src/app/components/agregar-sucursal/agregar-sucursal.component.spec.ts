@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AgregarEmpleadosComponent } from './agregar-empleados.component';
+import { AgregarSucursalComponent } from './agregar-sucursal.component';
 
-describe('AgregarEmpleadosComponent', () => {
-  let component: AgregarEmpleadosComponent;
-  let fixture: ComponentFixture<AgregarEmpleadosComponent>;
+describe('AgregarSucursalComponent', () => {
+  let component: AgregarSucursalComponent;
+  let fixture: ComponentFixture<AgregarSucursalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AgregarEmpleadosComponent ]
+      declarations: [ AgregarSucursalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AgregarEmpleadosComponent);
+    fixture = TestBed.createComponent(AgregarSucursalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

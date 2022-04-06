@@ -4,21 +4,31 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { VerEmpleadosComponent } from './components/ver-empleados/ver-empleados.component';
-import { AgregarEmpleadosComponent } from './components/agregar-empleados/agregar-empleados.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { AgregarEmpresaComponent } from './components/agregar-empresa/agregar-empresa.component';
+import { EliminarEmpresaComponent } from './components/eliminar-empresa/eliminar-empresa.component';
+import { VerEmpresaComponent } from './components/ver-empresa/ver-empresa.component';
+import { AgregarSucursalComponent } from './components/agregar-sucursal/agregar-sucursal.component';
+import { EliminarSucursalComponent } from './components/eliminar-sucursal/eliminar-sucursal.component';
+import { EditarSucursalComponent } from './components/editar-sucursal/editar-sucursal.component';
+import { VerSucursalComponent } from './components/ver-sucursal/ver-sucursal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    VerEmpleadosComponent,
-    AgregarEmpleadosComponent,
     LoginComponent,
     RegisterComponent,
-    InicioComponent
+    InicioComponent,
+    AgregarEmpresaComponent,
+    EliminarEmpresaComponent,
+    VerEmpresaComponent,
+    AgregarSucursalComponent,
+    EliminarSucursalComponent,
+    EditarSucursalComponent,
+    VerSucursalComponent
   ],
   imports: [
     BrowserModule,

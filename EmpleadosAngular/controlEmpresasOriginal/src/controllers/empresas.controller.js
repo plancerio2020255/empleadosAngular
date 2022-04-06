@@ -8,13 +8,13 @@ const jwt = require('../services/jwt');
 function RegistrarAdministrador(req, res) {
     var usuarioModel = new Usuario();
 
-    Usuario.find({ rol: 'ROL_SuperAdmin' }, (err, usuarioEncontrado) => {
+    Usuario.find({ rol: 'SuperAdmin' }, (err, usuarioEncontrado) => {
         if (usuarioEncontrado.length > 0) {
             return console.log({ mensaje: "Ya existe el SuperAdmin" })
         } else {
             usuarioModel.nombre = 'SuperAdmin';
             usuarioModel.email = 'SuperAdmin';
-            usuarioModel.rol = 'ROL_SuperAdmin';
+            usuarioModel.rol = 'SuperAdmin';
             bcrypt.hash('123456', null, null, (err, passwordEncriptada) => {
                 usuarioModel.password = passwordEncriptada;
 

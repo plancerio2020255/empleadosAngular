@@ -48,8 +48,7 @@ function CrearPdf(req, res) {
                 String(date.getMonth() + 1).padStart(2, '0') + '/' +
                 date.getFullYear();
 
-            const empleados = [
-                {
+            const empleados = [{
                     No: i,
                     nombre: empresaEncontrada[i].nombre,
                     apellido: empresaEncontrada[i].apellido,
@@ -87,17 +86,17 @@ function CrearPdf(req, res) {
                     { key: 'departamento', label: 'Departamento', align: 'center' }
                 ], empleados, {
 
-                //-------------------------------diseño de fili del empleado
-                border: null,
-                width: "fill_body",
-                striped: true,
-                stripedColors: ["#979A9A", "#45B39D"],
-                cellsPadding: 6,
-                marginLeft: 35,
-                marginRight: 55,
-                headAlign: 'center',
-                
-            });
+                    //-------------------------------diseño de fili del empleado
+                    border: null,
+                    width: "fill_body",
+                    striped: true,
+                    stripedColors: ["#979A9A", "#45B39D"],
+                    cellsPadding: 6,
+                    marginLeft: 35,
+                    marginRight: 55,
+                    headAlign: 'center',
+
+                });
 
         }
 
@@ -126,8 +125,7 @@ function EditarEmpleados(req, res) {
                 return res.status(200).send({ empleado: empleadoActualizado })
             }
         );
-    }
-    )
+    })
 }
 
 
@@ -168,10 +166,8 @@ function BuscarEmpleadoId(req, res) {
             if (!empleadoEncontrado) return res.status(500).send({ mensaje: 'Error al buscar empleado' });
 
             return res.status(200).send({ empleado: empleadoEncontrado })
-        }
-        );
-    }
-    )
+        });
+    })
 }
 
 function BuscarEmpleadoNombre(req, res) {
@@ -186,10 +182,8 @@ function BuscarEmpleadoNombre(req, res) {
             if (!empleadoEncontrado) return res.status(500).send({ mensaje: 'Error al buscar empleado' });
 
             return res.status(200).send({ empleado: empleadoEncontrado })
-        }
-        );
-    }
-    )
+        });
+    })
 
 }
 
@@ -207,10 +201,8 @@ function BuscarEmpleadoPuesto(req, res) {
             if (!empleadoEncontrado) return res.status(500).send({ mensaje: 'Error al buscar empleado' });
 
             return res.status(200).send({ empleado: empleadoEncontrado })
-        }
-        );
-    }
-    )
+        });
+    })
 
 }
 
@@ -227,10 +219,8 @@ function BuscarEmpleadoDepartamento(req, res) {
             if (!empleadoEncontrado) return res.status(500).send({ mensaje: 'Error al buscar empleado' });
 
             return res.status(200).send({ empleado: empleadoEncontrado })
-        }
-        );
-    }
-    )
+        });
+    })
 
 }
 
@@ -250,8 +240,7 @@ function TodosEmpleados(req, res) {
 
             return res.status(200).send({ Empleados: empleadosEncontrados })
         });
-    }
-    )
+    })
 
 }
 

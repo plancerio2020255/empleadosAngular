@@ -1,4 +1,6 @@
 const Usuario = require('../models/usuarios.models');
+const Empresas = require('../models/empresas.models');
+
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../services/jwt');
 
@@ -51,8 +53,51 @@ function Login(req, res) {
     })
 }
 
+
+function AgregarEmpresa(req, res) {
+    var parametros = req.body;
+    var empresasModel = new Empresas();
+
+    if (req.user.rol == 'ROL_SuperAdmin') {
+
+        if (parametros.nombreEmpresa && parametros.tipEmpresa &&
+            parametros.email && parametros.password) {
+            empresasModel.nombreEmpresa = parametros.nombreEmpresa;
+            empresasModel.tipEmpresa = parametros.tipEmpresa;
+            empresasModel.email = parametros.email;
+            empresasModel.rol = 'ROL_EMPRESA';
+
+
+            Empresas.find({ email: parametros.email }, (err, empresaEncontrada) => {
+                if (empresaEncontrada.length == 0) {
+
+                    bcrypt.hash(parametros.password, null, null, (err, passwordEncriptada) => {
+                        empresasModel.password = passwordEncriptada;
+
+                        empresasModel.save((err, empresaGuardada) => {
+                            if (err) return res.status(500)
+                                .send({ mensaje: 'Error en la peticion' });
+                            if (!empresaGuardada) return res.status(500)
+                                .send({ mensaje: 'Error al agregar el Empresa' });
+
+                            return res.status(200).send({ empresa: empresaGuardada });
+                        });
+                    });
+                } else {
+                    return res.status(500)
+                        .send({ mensaje: 'Este correo, ya  se encuentra utilizado' });
+                }
+            })
+        }
+    } else {
+        return res.status(400).send({ mensaje: 'No tiene acceso a registrar' })
+    }
+
+}
+
 module.exports = {
     RegistrarAdministrador,
-    Login
+    Login,
+    AgregarEmpresa
    
 }

@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-
 const empleadoRoutes = require('./src/routes/empresas.routes');
 const sucursalRoutes = require('./src/routes/sucursales.routes');
 

@@ -60,10 +60,10 @@ function AgregarEmpresa(req, res) {
 
     if (req.user.rol == 'SuperAdmin') {
 
-        if (parametros.nombreEmpresa && parametros.tipEmpresa &&
+        if (parametros.nombreEmpresa && parametros.tipoEmpresa &&
             parametros.email && parametros.password) {
             empresasModel.nombreEmpresa = parametros.nombreEmpresa;
-            empresasModel.tipEmpresa = parametros.tipEmpresa;
+            empresasModel.tipoEmpresa = parametros.tipoEmpresa;
             empresasModel.email = parametros.email;
             empresasModel.rol = 'Empresa';
 

@@ -7,8 +7,6 @@ const api = express.Router();
 api.post('/RegistrarAdministrador', usuarioControlador.RegistrarAdministrador);
 api.post('/Login', usuarioControlador.Login);
 api.post('/AgregarEmpresa', [md_autenticacion.Auth], usuarioControlador.AgregarEmpresa);
-api.delete('/eliminarEmpresa/:idEmpresa', [md_autenticacion.Auth], usuarioControlador.EliminarEmpresa);
-
 
 
 

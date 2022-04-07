@@ -95,22 +95,10 @@ function AgregarEmpresa(req, res) {
 
 }
 
-function EliminarEmpresa(req, res) {
-    var idEmp = req.params.idEmpresa; //Obtener el valor de la variable en ruta
 
-    Empresas.findByIdAndDelete(idEmp, (err, empresaEliminado) => {
-
-        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if (!empresaEliminado) return res.status(500)
-            .send({ mensaje: 'Error al eliminar la empresa' })
-
-        return res.status(200).send({ empresa: empresaEliminado });
-    })
-}
 
 module.exports = {
     RegistrarAdministrador,
     Login,
-    AgregarEmpresa,
-    EliminarEmpresa
+    AgregarEmpresa
 }

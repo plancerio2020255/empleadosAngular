@@ -7,7 +7,6 @@ const EmpresasSchema = Schema({
     email: String,
     rol: String,
     password: String,
-    idSucursal: { type: Schema.Types.ObjectId, ref: 'Sucursales' }
 });
 
 module.exports = mongoose.model('Empresas', EmpresasSchema);

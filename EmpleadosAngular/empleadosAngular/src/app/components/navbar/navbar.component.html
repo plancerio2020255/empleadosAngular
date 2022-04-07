@@ -1,0 +1,77 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="">
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link navbar__options">
+          Empresas
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" routerLink="/agregarEmpresa">
+            Agregar empresas
+          </a>
+          <a class="navbar-item" routerLink="/editarEmpresa">
+            Editar empresas
+          </a>
+          <a class="navbar-item" routerLink="/eliminarEmpresa">
+            Eliminar empresas
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item" routerLink="/verEmpresa">
+            Ver empresas
+          </a>
+        </div>
+
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link navbar__options">
+          Sucursales
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" routerLink="">
+            Agregar sucursales
+          </a>
+          <a class="navbar-item" routerLink="">
+            Editar sucursales
+          </a>
+          <a class="navbar-item" routerLink="">
+            Eliminar sucursales
+          </a>
+          <hr class="navbar-divider" color="#29a381">
+          <a class="navbar-item" routerLink="">
+            Ver sucursales
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" routerLink="/register">
+            <strong>Registrar</strong>
+          </a>
+          <a class="button is-light" routerLink="/login">
+            Login
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

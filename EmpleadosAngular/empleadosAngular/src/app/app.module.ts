@@ -14,6 +14,7 @@ import { AgregarSucursalComponent } from './components/agregar-sucursal/agregar-
 import { EliminarSucursalComponent } from './components/eliminar-sucursal/eliminar-sucursal.component';
 import { EditarSucursalComponent } from './components/editar-sucursal/editar-sucursal.component';
 import { VerSucursalComponent } from './components/ver-sucursal/ver-sucursal.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { VerSucursalComponent } from './components/ver-sucursal/ver-sucursal.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

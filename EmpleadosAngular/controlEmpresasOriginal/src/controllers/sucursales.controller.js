@@ -14,7 +14,7 @@ function EditarSucursales(req, res) {
         Sucursales.findByIdAndUpdate(idEmpresa, parametros, { new: true },
             (err, sucursalActualizado) => {
                 if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-                if (!sucursalActualizado) return res.status(500).send({ mensaje: 'Error al Editar Sucursal' });
+                if (!sucursalActualizado) return res.status(500).send({ mensaje: 'Error al Editar Sucursales' });
 
                 return res.status(200).send({ sucursal: sucursalActualizado })
             }

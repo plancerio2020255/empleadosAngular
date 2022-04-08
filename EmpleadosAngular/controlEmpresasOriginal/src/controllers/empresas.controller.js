@@ -94,9 +94,26 @@ function AgregarEmpresa(req, res) {
 
 }
 
+function editarEmpresa(req, res) {
+    var idempresa = req.params.idempresa;
+    var parametros = req.body;
+
+    delete parametros.password;
+    delete parametros.rol;
+
+    empresa.findByIdAndUpdate(idempresa, parametros, { new: true }, (err, EmpresasEditado) => {
+
+        if (err) return res.status(500).send({ mensaje: "error en la petcion" })
+        if (!EmpresaEditado) return res.status(500).send({ mensaje: "error al editar la empresa" });
+
+        return res.status(200).send({ usuario: empresaEditado })
+    })
+
+}
+
 module.exports = {
     RegistrarAdministrador,
     Login,
-    AgregarEmpresa
-   
+    AgregarEmpresa,
+    editarEmpresa
 }

@@ -4,7 +4,6 @@ const Empresas = require('../models/empresas.models');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../services/jwt');
 
-
 function RegistrarAdministrador(req, res) {
     var usuarioModel = new Usuario();
 
@@ -21,7 +20,7 @@ function RegistrarAdministrador(req, res) {
                 usuarioModel.save((err, usuarioGuardado) => {
                     if (err) console.log({ mensaje: 'Error en la peticion' });
                     if (!usuarioGuardado) return console.log({ mensaje: 'Error al agregar' });
-
+ 
                     return console.log({ usuario: usuarioGuardado });
                 });
             });
@@ -58,7 +57,7 @@ function AgregarEmpresa(req, res) {
     var parametros = req.body;
     var empresasModel = new Empresas();
 
-    if (req.user.rol == 'SuperAdmin') {
+    if (req.user.rol !== 'SuperAdmin') {
 
         if (parametros.nombreEmpresa && parametros.tipoEmpresa &&
             parametros.email && parametros.password) {
@@ -80,7 +79,7 @@ function AgregarEmpresa(req, res) {
                             if (!empresaGuardada) return res.status(500)
                                 .send({ mensaje: 'Error al agregar el Empresa' });
 
-                            return res.status(200).send({ empresa: empresaGuardada });
+                            return res.status(200).send({ empresas: empresaGuardada });
                         });
                     });
                 } else {

@@ -101,12 +101,12 @@ function editarEmpresa(req, res) {
     delete parametros.password;
     delete parametros.rol;
 
-    empresa.findByIdAndUpdate(idempresa, parametros, { new: true }, (err, EmpresasEditado) => {
+    Empresas.findByIdAndUpdate(idempresa, parametros, { new: true }, (err, EmpresasEditado) => {
 
         if (err) return res.status(500).send({ mensaje: "error en la petcion" })
-        if (!EmpresaEditado) return res.status(500).send({ mensaje: "error al editar la empresa" });
+        if (!EmpresasEditado) return res.status(500).send({ mensaje: "error al editar la empresa" });
 
-        return res.status(200).send({ usuario: empresaEditado })
+        return res.status(200).send({ usuario: EmpresasEditado })
     })
 
 }

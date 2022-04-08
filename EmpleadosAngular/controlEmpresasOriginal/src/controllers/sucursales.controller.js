@@ -30,7 +30,7 @@ function AgregarSucursal(req, res) {
         modeloSucursal.tipoEmpresa = parametros.tipoEmpresa;
         modeloSucursal.idEmpresa = req.user.sub;
 
- 
+
 
         modeloSucursal.save((err, sucuralGuardado) => {
             if (err) return res.status(400).send({ mensaje: 'Error en la peticion' });
@@ -45,6 +45,6 @@ function AgregarSucursal(req, res) {
 }
 
 module.exports = {
-    AgregarSucursal
+    AgregarSucursal,
+    EditarSucursales
 }
-

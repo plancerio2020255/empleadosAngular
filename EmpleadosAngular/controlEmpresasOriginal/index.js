@@ -4,7 +4,7 @@ const usuarioControlador = require('./src/controllers/empresas.controller');
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/ControlEmpresas', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect('mongodb://localhost:27017/controlEmpresas', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log('Se ha conectado correctamente a la base de datos.');
 
     usuarioControlador.RegistrarAdministrador();

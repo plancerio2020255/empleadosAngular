@@ -139,6 +139,7 @@ function editarEmpresa(req, res) {
 
 }
 
+//Exportaciones
 module.exports = {
     RegistrarAdministrador,
     Login,

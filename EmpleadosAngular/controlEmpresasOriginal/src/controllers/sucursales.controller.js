@@ -1,4 +1,6 @@
+const mongoose = require('mongoose');
 const Sucursales = require('../models/sucursales.models');
+
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../services/jwt');
 
@@ -20,6 +22,7 @@ function EditarSucursales(req, res) {
         );
     })
 }
+
 
 function AgregarSucursal(req, res) {
     const parametros = req.body;
@@ -44,7 +47,42 @@ function AgregarSucursal(req, res) {
 
 }
 
+
+
+function eliminarSucursales(req, res) {
+    var idSucursal = req.params.idSucursal; //Obtener el valor de la variable en ruta
+
+    Sucursales.findByIdAndDelete(idSucursal, (err, sucursalEliminado) => {
+
+        //Verificaciones
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!sucursalEliminado) return res.status(500)
+            .send({ mensaje: 'Error al eliminar el sucursal' })
+            //Verificaciones
+
+        return res.status(200).send({ sucursal: sucursalEliminado });
+    })
+}
+
+
+
+function BusquedaSucursalPorNombre(req, res) {
+    var nomSucursal = req.params.nombreSucursal;
+
+    Sucursales.find({ nombreSucursal: nomSucursal }, (err, SucursalesEncontrados) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en  la peticion' });
+        if (!SucursalesEncontrados) return res.status(500)
+            .send({ mensaje: 'Error al obtener el sucursal' })
+
+        return res.status(200).send({ productos: SucursalesEncontrados })
+    })
+}
+
+
+
 module.exports = {
     AgregarSucursal,
+    eliminarSucursales,
+    BusquedaSucursalPorNombre,
     EditarSucursales
 }

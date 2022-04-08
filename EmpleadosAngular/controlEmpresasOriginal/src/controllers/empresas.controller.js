@@ -20,7 +20,7 @@ function RegistrarAdministrador(req, res) {
                 usuarioModel.save((err, usuarioGuardado) => {
                     if (err) console.log({ mensaje: 'Error en la peticion' });
                     if (!usuarioGuardado) return console.log({ mensaje: 'Error al agregar' });
- 
+
                     return console.log({ usuario: usuarioGuardado });
                 });
             });
@@ -94,6 +94,7 @@ function AgregarEmpresa(req, res) {
 
 }
 
+
 function editarEmpresa(req, res) {
     var idempresa = req.params.idempresa;
     var parametros = req.body;
@@ -111,9 +112,39 @@ function editarEmpresa(req, res) {
 
 }
 
+
+function EliminarEmpresa(req, res) {
+    var idEmp = req.params.idEmpresa; //Obtener el valor de la variable en ruta
+
+    Empresas.findByIdAndDelete(idEmp, (err, empresaEliminado) => {
+
+        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+        if (!empresaEliminado) return res.status(500)
+            .send({ mensaje: 'Error al eliminar la empresa' })
+
+        return res.status(200).send({ empresa: empresaEliminado });
+    })
+}
+
+
+function BusquedaEmpresaPorNombre(req, res) {
+    var nomEmpres = req.params.nombreEmpresa;
+
+    Empresas.find({ nombreEmpresa: nomEmpres }, (err, empresasEncontrados) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en  la peticion' });
+        if (!empresasEncontrados) return res.status(500)
+            .send({ mensaje: 'Error al obtener la empresa' })
+
+        return res.status(200).send({ empresa: empresasEncontrados })
+    })
+}
+
+
 module.exports = {
     RegistrarAdministrador,
     Login,
     AgregarEmpresa,
-    editarEmpresa
+    editarEmpresa,
+    EliminarEmpresa,
+    BusquedaEmpresaPorNombre
 }

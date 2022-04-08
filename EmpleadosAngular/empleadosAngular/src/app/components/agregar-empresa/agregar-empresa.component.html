@@ -7,38 +7,39 @@
           <div class="field">
             <label class="label">Nombre</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Ejemplo: McDonalds">
+              <input class="input" type="text" placeholder="Ejemplo: McDonalds" name="nombreEmpresa" #nombre="ngModel"
+                [(ngModel)]="empresasModelPost.nombreEmpresa">
             </div>
           </div>
 
-            <div class="field">
-              <label class="label">Tipo de empresa</label>
-              <div class="select is-rounded">
-                <select>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
+          <div class="field">
+            <label class="label">Tipo de empresa</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Ejemplo: Restaurante" name="tipoEmpresa" #nombre="ngModel"
+              [(ngModel)]="empresasModelPost.nombreEmpresa">
             </div>
+          </div>
 
 
           <div class="field">
             <label class="label">Email</label>
             <div class="control">
-              <input class="input" type="email" placeholder="Ejemplo: hola@gmail.com">
+              <input class="input" type="email" placeholder="Ejemplo: hola@gmail.com" name="email" #nombre="ngModel"
+              [(ngModel)]="empresasModelPost.nombreEmpresa">
             </div>
           </div>
 
           <div class="field">
             <label class="label">Contraseña</label>
             <p class="control">
-              <input class="input" type="password" placeholder="Password">
+              <input class="input" type="password" placeholder="Password" name="password" #nombre="ngModel"
+              [(ngModel)]="empresasModelPost.nombreEmpresa">
             </p>
           </div>
 
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-link">Agregar</button>
+              <button class="button is-link" (click)="postEmpresas()">Agregar</button>
             </div>
             <div class="control">
               <button class="button is-link is-light">Cancelar</button>

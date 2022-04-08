@@ -94,6 +94,7 @@ function AgregarEmpresa(req, res) {
 
 }
 
+
 function EliminarEmpresa(req, res) {
     var idEmp = req.params.idEmpresa; //Obtener el valor de la variable en ruta
 
@@ -121,10 +122,28 @@ function BusquedaEmpresaPorNombre(req, res) {
 }
 
 
+function editarEmpresa(req, res) {
+    var idempresa = req.params.idempresa;
+    var parametros = req.body;
+
+    delete parametros.password;
+    delete parametros.rol;
+
+    Empresas.findByIdAndUpdate(idempresa, parametros, { new: true }, (err, EmpresasEditado) => {
+
+        if (err) return res.status(500).send({ mensaje: "error en la petcion" })
+        if (!EmpresasEditado) return res.status(500).send({ mensaje: "error al editar la empresa" });
+
+        return res.status(200).send({ usuario: EmpresasEditado })
+    })
+
+}
+
 module.exports = {
     RegistrarAdministrador,
     Login,
     AgregarEmpresa,
     EliminarEmpresa,
-    BusquedaEmpresaPorNombre
+    BusquedaEmpresaPorNombre,
+    editarEmpresa
 }

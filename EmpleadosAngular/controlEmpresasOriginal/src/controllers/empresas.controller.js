@@ -95,9 +95,28 @@ function AgregarEmpresa(req, res) {
 
 }
 
+function editarEmpresa(req, res) {
+    const parametros = req.body;
+    const idEmpleado = req.params.idEmpleado;
+
+    Empresas.findOne({ _id: idEmpleado, idEmpresa: req.user.sub }, (err, empresaEncontrada) => {
+        if (!empresaEncontrada) {
+            return res.status(400).send({ mensaje: "No puedes editar una empresa" });
+        }
+        Empresas.findByIdAndUpdate(idEmpresa, parametros, { new: true },
+            (err, empresaActualizado) => {
+                if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
+                if (!empleadoActualizado) return res.status(500).send({ mensaje: 'Error al Editar el Empresa' });
+
+                return res.status(200).send({ empresa: empresaActualizado })
+            }
+        );
+    })
+}
+
 module.exports = {
     RegistrarAdministrador,
     Login,
-    AgregarEmpresa
-   
+    AgregarEmpresa,
+    editarEmpresa
 }

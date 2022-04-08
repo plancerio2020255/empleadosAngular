@@ -41,9 +41,24 @@ function eliminarSucursales(req, res) {
 
 
 
+function BusquedaSucursalPorNombre(req, res) {
+    var nomSucursal = req.params.nombreSucursal;
+
+    Sucursales.find({ nombreSucursal: nomSucursal }, (err, SucursalesEncontrados) => {
+        if (err) return res.status(500).send({ mensaje: 'Error en  la peticion' });
+        if (!SucursalesEncontrados) return res.status(500)
+            .send({ mensaje: 'Error al obtener el sucursal' })
+
+        return res.status(200).send({ productos: SucursalesEncontrados })
+    })
+}
+
+
+
 
 
 module.exports = {
     AgregarSucursal,
-    eliminarSucursales
+    eliminarSucursales,
+    BusquedaSucursalPorNombre
 }

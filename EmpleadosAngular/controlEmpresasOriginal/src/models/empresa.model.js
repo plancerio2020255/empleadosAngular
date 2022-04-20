@@ -1,12 +1,13 @@
-const mongoose = require('moongose');
+const mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
 var EmpresaSchema = Schema({
     nombre: String,
-    rol: String,
-    idTipoEmpresa: {type: Schema.Types.ObjectId, ref:'Tipo'},
-    idProductos: {type: Schema.Types.objectId, ref:'Productos'},
+    usuario: String,
+    email: String,
+    password: String,
+    rol: String
 })
 
-module.exports = mongoose.model('Empresas', EmpresaSchema)
+module.exports = mongoose.model('Empresas', EmpresaSchema);

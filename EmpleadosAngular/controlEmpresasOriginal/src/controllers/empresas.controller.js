@@ -12,8 +12,33 @@ function registarEmpresa() {
 
 }
 
-function login() {
+function Login(req, res) {
+    var parametros = req.body;
+    Empresas.findOne({ email : parametros.email }, (err, empresaEncontrada) => {
+        if(err) return res.status(500).send({ mensaje: 'Error en la peticion'});
+        if (empresaEncontrada){
+            bcrypt.compare(parametros.password, empresaEncontrada.password, 
+                (err, verificacionPassword) => {
+                    if (verificacionPassword) {
+                        if(parametros.obtenerToken == 'true'){
+                            return res.status(200)
+                                .send({ token: jwt.crearToken(empresaEncontrada) })
+                        } else {
+                            empresaEncontrada.password = undefined;
 
+                            return res.status(200)
+                                .send({ empresa: empresaEncontrada })
+                        }                       
+                    } else {
+                        return res.status(500)
+                            .send({ mensaje: 'La contrasena no coincide.'})
+                    }
+                })
+        } else {
+            return res.status(500)
+                .send({ mensaje: 'La empresa, no se ha podido identificar'})
+        }
+    })
 }
 
 module.exports = {

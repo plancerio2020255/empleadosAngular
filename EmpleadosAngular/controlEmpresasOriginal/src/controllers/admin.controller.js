@@ -6,7 +6,7 @@ const Municipios = require('../models/municipios.model')
 
 const bcrypt = require('bcrypt-nodejs')
 
-function crearAdmin (req, res) {
+function crearAdmin(req, res) {
   const administrador = new Empresas()
 
   Empresas.findOne({ usuario: 'SuperAdmin' }, (err, crearAdmin) => {
@@ -41,43 +41,142 @@ function crearAdmin (req, res) {
 
 // ------------------- Municipios------------------ //
 
-function crearMunicipio () {
+function crearMunicipio(req, res) {
+  var parametros = req.body;
+  var modeloMunicipio = new Municipios();
 
+  if (parametros.nombreMunicipio) {
+    modeloMunicipio.nombreMunicipio = parametros.nombreMunicipio;
+
+    modeloMunicipio.save((err, municipioGuardado) => {
+      return res.send({ municipio: municipioGuardado });
+    });
+  } else {
+    return res.status(400).send({ mensaje: 'Debe enviar los parametros obligatorios: nombreMunicipio' })
+  }
 }
 
-function editarMunicipio () {
+function editarMunicipio() {
+  var idMunicipio = req.params.idMuni;
+  var parametros = req.body;
 
+  Municipios.findByIdAndUpdate(idMunicipio, parametros,
+    { new: true }, (err, municipioEditado) => {
+      if (err) return res.status(500).send({ mensaje: 'Error en la peticion' })
+      if (!municipioEditado) return res.status(404)
+        .send({ mensaje: 'Error al editar el municipio' });
+
+      return res.status(200).send({ municipio: municipioEditado });
+    })
 }
 
-function deleteMunicipio () {
+function deleteMunicipio() {
+  var idMunicipio = req.params.idMuni;
 
+  Municipios.findByIdAndUpdate(idMunicipio, (err, municipioEliminado) => {
+    if (err) return res.status(500).send({ mensaje: 'Error en la peticion' })
+    if (!municipioEliminado) return res.status(500)
+      .send({ mensaje: 'Error al eliminar el municipio' })
+
+    return res.status(200).send({ municipio: municipioEliminado });
+  })
 }
 
 // ---------------- Tipo Empresas ----------------
 
-function crearTipoEmpresa () {
+function crearTipoEmpresa() {
+  var parametros = req.body;
+  var modeloTipo = new Tipo();
 
+  if (parametros.nombreTipo) {
+    modeloTipo.nombreTipo = parametros.nombreTipo;
+
+    modeloTipo.save((err, tipoGuardado) => {
+      return res.sed({ Tipo: tipoGuardado });
+    });
+  } else {
+    return res.status(400).send({ mensaje: 'Debe enviar los parametros obligatorios: nombreTipo' })
+  }
 }
 
-function editarTipoEmpresa () {
+function editarTipoEmpresa() {
+  var parametros = req.body;
+  var idTipo = req.params.idTip;
 
+  Tipo.findByIdAndUpdate(idTipo, parametros, { new: true }, (err, tipoEditado) => {
+    if (err) return res.status(500).send({ mensaje: 'Error en la peticion' })
+    if (!tipoEditado) return res.status(404)
+      .send({ mensaje: 'Error al editar tipo' })
+
+    return res.status(200).send({ tipo: tipoEditado });
+  });
 }
 
-function deleteTipoEmpresa () {
+function deleteTipoEmpresa() {
+  var idTipo = req.params.idTip;
 
+  Tipo.findByIdAndDelete(idTipo, (err, tipoEliminados) => {
+    if (err) return res.status(500).send({ mensaje: 'Error en la peticion' })
+    if (!tipoEliminados) return res.status(500).send({ mensaje: 'Error al eliminar tipo' })
+
+    return res.status(200).send({ tipo: tipoEliminados });
+  })
 }
 
 // --------------------- Empresas -------------------------------- //
 
-function agregarEmpresa () {
+function agregarEmpresa() {
+  var parametros = req.body;
+  var modeloEmpresa = new Empresas();
 
+  if (parametros.nombre
+    && parametros.usuario
+    && parametros.email
+    && parametros.password) {
+      Empresas.find({email : parametros.email}, (err, empresaEncontrada) => {
+        if(empresaEncontrada.length>0) {
+          return res.status(500).send({mensaje : 'Este correo ya esta en uso'})
+        } else {
+          modeloEmpresa.nombre = parametros.nombre;
+          modeloEmpresa.usuario = parametros.usuario;
+          modeloEmpresa.email = parametros.email;
+
+          bcrypt.hash(parametros.password, null, null, (err, passwordEncriptada) => {
+            modeloEmpresa.password = passwordEncriptada;
+
+            modeloEmpresa.save((err, empresaGuardada) => {
+              if(err) return res.status(500).send({mensaje: 'Error en la peticion'});
+              if(!empresaGuardada) return res.status(500).send({mensaje: 'Error al guardar la empresa'})
+              
+              return res.status(200).send({empresa: empresaGuardada});
+            });
+          })
+        } 
+      })
+  } else {
+    return res.status(404).send({mensaje: 'Debe ingresar los parametros obligatorios'});
+  }
 }
 
-function editarEmpresa () {
+function editarEmpresa() {
+  var parametros = req.body;
+  var idEmpresa = req.params.idEmpre;
 
+  delete parametros.password
+
+  if(req.user.sub !== idEmpresa) {
+    return res.status(404).send({mensaje: 'No tiene los permisos suficientes para editar este usuario'});
+  }
+  Empresas.findByIdAndUpdate(req.user.sub, parametros, {new: true}, (err, empresaEditada) => {
+    if(err) return res.status(500).send({mensaje: 'Error en la peticion'});
+    if(!empresaEditada) return res.status(500).send({mensaje: 'Error al editar la empresa'});
+
+    return res.status(200).send({mensaje: 'empresa: empresaEditada'});
+  })
 }
 
-function eliminarEmpresa () {
+function eliminarEmpresa() {
+  const idEmpresa = req.params.idEmpre;
 
 }
 

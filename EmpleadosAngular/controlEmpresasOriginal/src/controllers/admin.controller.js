@@ -56,7 +56,7 @@ function crearMunicipio (req, res) {
   }
 }
 
-function editarMunicipio () {
+function editarMunicipio (req, res) {
   const idMunicipio = req.params.idMuni
   const parametros = req.body
 
@@ -72,7 +72,7 @@ function editarMunicipio () {
     })
 }
 
-function deleteMunicipio () {
+function deleteMunicipio (req, res) {
   const idMunicipio = req.params.idMuni
 
   Municipios.findByIdAndUpdate(idMunicipio, (err, municipioEliminado) => {
@@ -88,7 +88,7 @@ function deleteMunicipio () {
 
 // ---------------- Tipo Empresas ----------------
 
-function crearTipoEmpresa () {
+function crearTipoEmpresa (req, res) {
   const parametros = req.body
   const modeloTipo = new Tipo()
 
@@ -103,7 +103,7 @@ function crearTipoEmpresa () {
   }
 }
 
-function editarTipoEmpresa () {
+function editarTipoEmpresa (req, res) {
   const parametros = req.body
   const idTipo = req.params.idTip
 
@@ -118,7 +118,7 @@ function editarTipoEmpresa () {
   })
 }
 
-function deleteTipoEmpresa () {
+function deleteTipoEmpresa (req, res) {
   const idTipo = req.params.idTip
 
   Tipo.findByIdAndDelete(idTipo, (err, tipoEliminados) => {
@@ -131,7 +131,7 @@ function deleteTipoEmpresa () {
 
 // --------------------- Empresas -------------------------------- //
 
-function agregarEmpresa () {
+function agregarEmpresa (req, res) {
   const parametros = req.body
   const modeloEmpresa = new Empresas()
 
@@ -146,6 +146,7 @@ function agregarEmpresa () {
         modeloEmpresa.nombre = parametros.nombre
         modeloEmpresa.usuario = parametros.usuario
         modeloEmpresa.email = parametros.email
+        modeloEmpresa.rol = 'Empresas'
 
         bcrypt.hash(parametros.password, null, null, (err, passwordEncriptada) => {
           modeloEmpresa.password = passwordEncriptada
@@ -164,7 +165,7 @@ function agregarEmpresa () {
   }
 }
 
-function editarEmpresa () {
+function editarEmpresa (req, res) {
   const parametros = req.body
   const idEmpresa = req.params.idEmpre
 
@@ -181,7 +182,7 @@ function editarEmpresa () {
   })
 }
 
-function eliminarEmpresa () {
+function eliminarEmpresa (req, res) {
   const idEmpresa = req.params.idEmpre
 }
 

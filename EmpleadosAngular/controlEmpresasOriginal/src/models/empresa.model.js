@@ -7,7 +7,8 @@ const EmpresaSchema = Schema({
   usuario: String,
   email: String,
   password: String,
-  rol: String
+  rol: String,
+  tipoEmpresa: String
 })
 
 module.exports = mongoose.model('Empresas', EmpresaSchema)

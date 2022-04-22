@@ -17,7 +17,7 @@ function Login(req, res) {
                             empresaEncontrada.password = undefined;
 
                             return res.status(200)
-                                .send({ usuario: empresaEncontrada })
+                                .send({ empresa: empresaEncontrada })
                         }                       
                     } else {
                         return res.status(500)
@@ -29,4 +29,8 @@ function Login(req, res) {
                 .send({ mensaje: 'El usuario, no se ha podido identificar'})
         }
     })
+}
+
+module.exports = {
+    Login
 }

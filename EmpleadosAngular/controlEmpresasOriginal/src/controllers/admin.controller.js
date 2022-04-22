@@ -155,7 +155,7 @@ function agregarEmpresa (req, res) {
             if (err) return res.status(500).send({ mensaje: 'Error en la peticion' })
             if (!empresaGuardada) return res.status(500).send({ mensaje: 'Error al guardar la empresa' })
 
-            return res.status(200).send({ empresa: empresaGuardada })
+            return res.status(200).send({ mensaje: 'Se ha registrado una nueva empresa: ' , empresa: empresaGuardada })
           })
         })
       }

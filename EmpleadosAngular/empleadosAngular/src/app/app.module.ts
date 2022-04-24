@@ -15,6 +15,7 @@ import { EliminarSucursalComponent } from './components/eliminar-sucursal/elimin
 import { EditarSucursalComponent } from './components/editar-sucursal/editar-sucursal.component';
 import { VerSucursalComponent } from './components/ver-sucursal/ver-sucursal.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule
   ],
   providers: [],

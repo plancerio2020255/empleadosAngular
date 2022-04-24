@@ -6,6 +6,8 @@ const Municipios = require('../models/municipios.model')
 
 const bcrypt = require('bcrypt-nodejs')
 
+// ------------------- Crear Admin -------------------- // 
+
 function crearAdmin (req, res) {
   const administrador = new Empresas()
 
@@ -38,6 +40,7 @@ function crearAdmin (req, res) {
     }
   })
 }
+
 
 // ------------------- Municipios------------------ //
 

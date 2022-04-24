@@ -62,13 +62,32 @@ function Login(req, res) {
     })
 }
 
+function actualizarEmpresa(req, res) {
+    var idempresa = req.params.idempresa;
+    var parametros = req.body;
+
+    if (req.user.sub !== idempresa) {
+        return res.status(500).send({ mensaje: "No tienes permiso para editar la empresa" })
+    }
+
+    Empresas.findByIdAndUpdate(req.user.sub, parametros, { new: true }, (err, empresaActualizado) => {
+
+        if (err) return res.status(500).send({ mensaje: 'Error en  la peticion' });
+        if (!empresaEditada) return res.status(500).send({ mensaje: 'Error al actualizar la empresa' });
+
+        return res.status(200).send({ empresa: empresaEditada });
+
+    })
+
+}
+
 function eliminarEmpresa(req, res) {
 
     var idEmpresa = req.params.idempresa;
 
     Empresas.findByIdAndDelete(idEmpresa, (err, empresaEliminada) => {
-        if (err) return res.status(400).send({ mensaje: "error en la peticion" });
-        if (!empresaEliminada) return res.status(400).send({ mensaje: "erro al eliminar la empresa" });
+        if (err) return res.status(400).send({ mensaje: "error en la Peticion" });
+        if (!empresaEliminada) return res.status(400).send({ mensaje: "error al eliminar la Empresa" });
 
         return res.status(200).send({ empresa: empresaEliminada })
     })
@@ -80,5 +99,6 @@ module.exports = {
     Login,
     AgregarEmpresa,
     editarEmpresa,
-    eliminarEmpresa
+    eliminarEmpresa,
+    actualizarEmpresa
 }

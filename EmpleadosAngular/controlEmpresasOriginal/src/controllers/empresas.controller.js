@@ -20,7 +20,7 @@ function RegistrarAdministrador(req, res) {
                 usuarioModel.save((err, usuarioGuardado) => {
                     if (err) console.log({ mensaje: 'Error en la peticion' });
                     if (!usuarioGuardado) return console.log({ mensaje: 'Error al agregar' });
- 
+
                     return console.log({ usuario: usuarioGuardado });
                 });
             });
@@ -111,9 +111,23 @@ function editarEmpresa(req, res) {
 
 }
 
+function eliminarEmpresa(req, res) {
+
+    var idEmpresa = req.params.idempresa;
+
+    empresa.findByIdAndDelete(idEmpresa, (err, empresaEliminada) => {
+        if (err) return res.status(400).send({ mensaje: "error en la peticion" });
+        if (!empresaEliminada) return res.status(400).send({ mensaje: "erro al eliminar la empresa" });
+
+        return res.status(200).send({ empresa: empresaEliminada })
+    })
+
+}
+
 module.exports = {
     RegistrarAdministrador,
     Login,
     AgregarEmpresa,
-    editarEmpresa
+    editarEmpresa,
+    eliminarEmpresa
 }

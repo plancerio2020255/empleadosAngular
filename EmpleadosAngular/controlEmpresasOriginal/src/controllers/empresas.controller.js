@@ -115,7 +115,7 @@ function eliminarEmpresa(req, res) {
 
     var idEmpresa = req.params.idempresa;
 
-    empresa.findByIdAndDelete(idEmpresa, (err, empresaEliminada) => {
+    Empresas.findByIdAndDelete(idEmpresa, (err, empresaEliminada) => {
         if (err) return res.status(400).send({ mensaje: "error en la peticion" });
         if (!empresaEliminada) return res.status(400).send({ mensaje: "erro al eliminar la empresa" });
 

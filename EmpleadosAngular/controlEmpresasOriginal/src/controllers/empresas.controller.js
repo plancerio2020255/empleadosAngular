@@ -1,3 +1,36 @@
+
+const Usuario = require('../models/usuarios.models');
+const Empresas = require('../models/empresas.models');
+
+const bcrypt = require('bcrypt-nodejs');
+const jwt = require('../services/jwt');
+
+function RegistrarAdministrador(req, res) {
+    var usuarioModel = new Usuario();
+
+    Usuario.find({ rol: 'SuperAdmin' }, (err, usuarioEncontrado) => {
+        if (usuarioEncontrado.length > 0) {
+            return console.log({ mensaje: "Ya existe el SuperAdmin" })
+        } else {
+            usuarioModel.nombre = 'SuperAdmin';
+            usuarioModel.email = 'SuperAdmin';
+            usuarioModel.rol = 'SuperAdmin';
+            bcrypt.hash('123456', null, null, (err, passwordEncriptada) => {
+                usuarioModel.password = passwordEncriptada;
+
+                usuarioModel.save((err, usuarioGuardado) => {
+                    if (err) console.log({ mensaje: 'Error en la peticion' });
+                    if (!usuarioGuardado) return console.log({ mensaje: 'Error al agregar' });
+
+                    return console.log({ usuario: usuarioGuardado });
+                });
+            });
+        }
+    })
+
+}
+
+=======
 const Empresas = require('../models/empresa.model')
 const bcrypt = require('bcrypt-nodejs')
 const jwt = require('../services/jwt')
@@ -31,6 +64,23 @@ function Login(req, res) {
     })
 }
 
+function eliminarEmpresa(req, res) {
+
+    var idEmpresa = req.params.idempresa;
+
+    empresa.findByIdAndDelete(idEmpresa, (err, empresaEliminada) => {
+        if (err) return res.status(400).send({ mensaje: "error en la peticion" });
+        if (!empresaEliminada) return res.status(400).send({ mensaje: "erro al eliminar la empresa" });
+
+        return res.status(200).send({ empresa: empresaEliminada })
+    })
+
+}
+
 module.exports = {
-    Login
+    RegistrarAdministrador,
+    Login,
+    AgregarEmpresa,
+    editarEmpresa,
+    eliminarEmpresa
 }

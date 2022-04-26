@@ -11,6 +11,7 @@ import { EmpresasService } from 'src/app/services/empresas.service';
 export class AgregarEmpresaComponent implements OnInit {
 
   public empresasModelPost: Empresas;
+  public token;
 
   constructor(private empresaService: EmpresasService) {
     this.empresasModelPost = new Empresas(
@@ -21,6 +22,7 @@ export class AgregarEmpresaComponent implements OnInit {
       '',
       ''
     )
+     this.token = this.empresaService.getToken()
   }
 
   ngOnInit(): void {

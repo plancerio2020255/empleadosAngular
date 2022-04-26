@@ -44,8 +44,8 @@ export class LoginComponent implements OnInit {
   login(){
     this.empresasService.login(this.empresasModel).subscribe(
       (response)=>{
-        console.log(response.usuario);
-        localStorage.setItem('identidad', JSON.stringify(response.usuario))
+        console.log(response.empresa);
+        localStorage.setItem('identidad', JSON.stringify(response.empresa))
         this.getToken();
         Swal.fire({
           icon: 'success',

@@ -187,6 +187,23 @@ function editarEmpresa (req, res) {
 
 function eliminarEmpresa (req, res) {
   const idEmpresa = req.params.idEmpre
+
+  if(req.user.sub == idEmpre) {
+    return res.status(500).send({mensaje: 'Nos vamos a quedar sin admin!'})
+  }
+
+  Empresa.findById(idEmpre,(err, empresaEliminada) => {
+    if(err) return res.status(500).send({mensaje:'Error en la peticion'})
+    if(!empresaEliminada) return res.status({mensaje:'Error al eliminar la emresa'})
+
+    return res.status(200).send({empresa : empresaEliminada})
+  })
+}
+
+function verEmpresa(req, res) {
+  Empresas.find({}, (err, empresaEncontradas) => {
+    return res.status(200).send({ Empresas: empresaEncontradas });
+  });
 }
 
 module.exports = {
@@ -199,6 +216,7 @@ module.exports = {
   agregarEmpresa,
   editarEmpresa,
   eliminarEmpresa,
+  verEmpresa,
   // -------- Tipo Empresas ------//
   crearTipoEmpresa,
   editarTipoEmpresa,

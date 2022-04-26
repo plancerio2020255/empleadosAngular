@@ -7,14 +7,27 @@
           <div class="field">
             <label class="label">Nombre</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Ejemplo: McDonalds" >
+              <input class="input" type="text" placeholder="Ejemplo: McDonalds"
+              name="nombre" #nombre="ngModel"
+              [(ngModel)] = "empresasModelPost.nombre">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Usuario</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Ejemplo: McDonalds123"
+              name="usuario" #usuario="ngModel"
+              [(ngModel)] = "empresasModelPost.usuario">
             </div>
           </div>
 
           <div class="field">
             <label class="label">Tipo de empresa</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Ejemplo: Restaurante" >
+              <input class="input" type="text" placeholder="Ejemplo: Restaurante"
+              name="tipoEmpresa" #tipoEmpresa="ngModel"
+              [(ngModel)] = "empresasModelPost.tipoEmpresa">
             </div>
           </div>
 
@@ -22,23 +35,27 @@
           <div class="field">
             <label class="label">Email</label>
             <div class="control">
-              <input class="input" type="email" placeholder="Ejemplo: hola@gmail.com">
+              <input class="input" type="email" placeholder="Ejemplo: hola@gmail.com"
+              name="email" #email="ngModel"
+              [(ngModel)] = "empresasModelPost.email">
             </div>
           </div>
 
           <div class="field">
             <label class="label">Contraseña</label>
             <p class="control">
-              <input class="input" type="password" placeholder="Password" >
+              <input class="input" type="password" placeholder="Password"
+              name="password" #password="ngModel"
+              [(ngModel)] = "empresasModelPost.password">
             </p>
           </div>
 
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-link">Agregar</button>
+              <button class="button is-link" (click)="postEmpresa()">Agregar</button>
             </div>
             <div class="control">
-              <button class="button is-link is-light">Cancelar</button>
+              <button class="button is-link is-light"  routerLink="/inicio">Cancelar</button>
             </div>
           </div>
 

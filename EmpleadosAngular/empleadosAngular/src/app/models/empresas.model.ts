@@ -1,10 +1,11 @@
 export class Empresas {
   constructor(
     public _id: String,
-    public nombreEmpresa: String,
-    public tipoEmpresa: String,
+    public nombre: String,
+    public usuario: String,
     public email: String,
+    public password: String,
     public rol: String,
-    public password: String
+    public tipoEmpresa: String
   ) {}
 }

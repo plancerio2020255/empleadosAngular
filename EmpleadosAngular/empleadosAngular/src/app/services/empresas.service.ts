@@ -53,6 +53,11 @@ export class EmpresasService {
 
     return this.identidad;
   }
+  
+   obtenerEmpresas(token) : Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization', token)
+    return this._http.get(this.url + '/verEmpresa', {headers: headersToken})
+  }
 
   agregarEmpresas(modeloEmpresa: Empresas) {
     let parametros = JSON.stringify(modeloEmpresa);

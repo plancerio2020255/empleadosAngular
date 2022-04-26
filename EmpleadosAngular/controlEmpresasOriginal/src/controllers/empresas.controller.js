@@ -17,7 +17,7 @@ function Login(req, res) {
                             empresaEncontrada.password = undefined;
 
                             return res.status(200)
-                                .send({ empresa: empresaEncontrada })
+                                .send({empresa: empresaEncontrada })
                         }                       
                     } else {
                         return res.status(500)

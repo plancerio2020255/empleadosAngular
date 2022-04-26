@@ -39,4 +39,17 @@ export class LoginComponent implements OnInit {
     )
   }
 
+  login() {
+    this.empresaService.login(this.empresaModel).subscribe(
+      (res) => {
+        console.log(res.empresa);
+        localStorage.setItem('identidad', JSON.stringify(res.empresa));
+        this.getToken();
+      },
+      (error) => {
+        console.log(<any>error);
+      }
+    )
+  }
+
 }

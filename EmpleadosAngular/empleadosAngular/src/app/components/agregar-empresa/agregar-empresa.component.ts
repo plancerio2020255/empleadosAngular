@@ -11,6 +11,7 @@ export class AgregarEmpresaComponent implements OnInit {
 
   public empresasModelPost: Empresas;
   public empresaModelGet: Empresas;
+  public token;
 
   constructor(private empresaService: EmpresasService) {
     this.empresasModelPost = new Empresas(
@@ -22,34 +23,20 @@ export class AgregarEmpresaComponent implements OnInit {
       '',
       ''
     )
+    this.token = this.empresaService.getToken()
   }
 
   ngOnInit(): void {
-    this.getEmpresas();
   }
 
   postEmpresa() {
     this.empresaService.agregarEmpresa(this.empresasModelPost).subscribe(
       (res) => {
-        console.log ( res)
-        this.getEmpresas();
+        console.log (res)
     },
     (error) =>{
       console.log( <any>error);
     }
     )
   }
-
-  getEmpresas(){
-    this.empresaService.obtenerEmpresas().subscribe(
-      (res) => {
-        this.empresaModelGet = res.Empresas;
-        console.log(res.Empresas);
-      },
-      (error) => {
-        console.log(<any>error);
-      }
-    )
-  }
-
 }

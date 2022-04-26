@@ -64,6 +64,7 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
+          <span class="tag is-primary is-medium" *ngIf="empresaService.getIdentidad()"> {{empresaService.getIdentidad().nombre}} </span>
           <a class="button is-primary" routerLink="/register">
             <strong>Registrar</strong>
           </a>

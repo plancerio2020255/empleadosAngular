@@ -15,6 +15,12 @@ export class EmpresasService {
 
 
 
+  VerEmpresas(token) : Observable<any> {
+
+    let headersToken = this.headersVariable.set('Authorization', token )
+    return this.http.get(this.url + '/agregar-empresa', { headers: headersToken});
+  }
+
   login(usuario, obtenerToken = null): Observable<any> {
 
     if(obtenerToken != null){
@@ -53,11 +59,18 @@ export class EmpresasService {
 
     return this.identidad;
   }
-  
+
    obtenerEmpresas(token) : Observable<any> {
     let headersToken = this.headersVariable.set('Authorization', token)
-    return this._http.get(this.url + '/verEmpresa', {headers: headersToken})
+    return this.http.get(this.url + '/verEmpresa', {headers: headersToken})
   }
+
+  registrarEmpresa(modeloEmpresa: Empresas) : Observable<any> {
+    let parametros = JSON.stringify(modeloEmpresa);
+
+    return this.http.post(this.url + '/registrarEmpresa', parametros, {headers: this.headersVariable});
+  }
+
 
   agregarEmpresas(modeloEmpresa: Empresas) {
     let parametros = JSON.stringify(modeloEmpresa);

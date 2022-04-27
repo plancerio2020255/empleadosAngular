@@ -10,11 +10,14 @@ import { EmpresasService } from 'src/app/services/empresas.service';
 })
 export class AgregarEmpresaComponent implements OnInit {
 
+  public empresaModelGet: Empresas;
+  public empresaModelGetId: Empresas;
   public empresasModelPost: Empresas;
   public token;
 
   constructor(private empresaService: EmpresasService) {
     this.empresasModelPost = new Empresas(
+      '',
       '',
       '',
       '',
@@ -26,17 +29,46 @@ export class AgregarEmpresaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getEmpresas();
   }
 
-  postEmpresas() {
-    this.empresaService.agregarEmpresas(this.empresasModelPost).subscribe(
-      (res) => {
-        console.log(res)
+  getEmpresas(){
+
+    this.empresaService.VerEmpresas(this.token).subscribe(
+      (response)=>{
+        this.empresaModelGet = response.Empresas;
+        console.log(this.empresaModelGet)
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+
+}
+
+  postEmpresas(){
+    this.empresaService.registrarEmpresa(this.empresasModelPost).subscribe(
+      (response) => {
+        console.log(response);
+        this.getEmpresas();
+
+        this.empresasModelPost.nombre = '';
+        this.empresasModelPost.usuario = '';
+        this.empresasModelPost.email = '';
+        this.empresasModelPost.password = '';
+        this.empresasModelPost.rol = '';
+        this.empresasModelPost.tipoEmpresa = '';
+
+
       },
       (error) => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     )
   }
+
+
+
+
 
 }

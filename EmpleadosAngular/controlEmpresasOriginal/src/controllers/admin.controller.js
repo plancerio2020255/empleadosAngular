@@ -186,6 +186,12 @@ function eliminarEmpresa (req, res) {
   const idEmpresa = req.params.idEmpre
 }
 
+function verEmpresa(req, res) {
+  Empresas.find({}, (err, empresaEncontradas) => {
+    return res.status(200).send({ Empresas: empresaEncontradas });
+  });
+}
+
 module.exports = {
   crearAdmin,
   // -------- Municipios ------//
@@ -196,6 +202,7 @@ module.exports = {
   agregarEmpresa,
   editarEmpresa,
   eliminarEmpresa,
+  verEmpresa,
   // -------- Tipo Empresas ------//
   crearTipoEmpresa,
   editarTipoEmpresa,

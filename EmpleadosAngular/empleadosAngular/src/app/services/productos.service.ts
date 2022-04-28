@@ -14,13 +14,6 @@ export class ProductosService {
 
   constructor(public http: HttpClient) { }
 
-  /*agregarProducto(modeloProducto: ProductosEmpresa, token): Observable<any> {
-    let headersToken = this.headersVariable.set('Authorization', token)
-    let parametros = JSON.stringify(modeloProducto);
-
-    return this.http.post(this.url + '/', parametros, { headers: headersToken })
-  }*/
-
   obtenerProducto(token): Observable<any> {
     let headersToken = this.headersVariable.set('Authorization', token)
     return this.http.get(this.url + '/',{ headers: headersToken })
@@ -45,4 +38,10 @@ export class ProductosService {
 
   }*/
 
+    /*agregarProducto(modeloProducto: ProductosEmpresa, token): Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization', token)
+    let parametros = JSON.stringify(modeloProducto);
+
+    return this.http.post(this.url + '/', parametros, { headers: headersToken })
+  }*/
 }

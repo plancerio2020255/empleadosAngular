@@ -4,6 +4,7 @@ import { AgregarEmpresaComponent } from './components/agregar-empresa/agregar-em
 import { AgregarSucursalComponent } from './components/agregar-sucursal/agregar-sucursal.component';
 import { EliminarEmpresaComponent } from './components/eliminar-empresa/eliminar-empresa.component';
 import { EliminarSucursalComponent } from './components/eliminar-sucursal/eliminar-sucursal.component';
+import { EmpresaComponent } from './components/empresa/empresa.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   //Rutas de empresas
+  {path: 'Empresa', component: EmpresaComponent},
   {path: 'agregarEmpresa', component: AgregarEmpresaComponent},
   {path: 'eliminarEmpresa', component: EliminarEmpresaComponent},
   {path: 'verEmpresa', component: VerEmpresaComponent},

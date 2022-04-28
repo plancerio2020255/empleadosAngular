@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresas } from 'src/app/models/empresa.model';
-import { EmpresasService } from 'src/app/services/empresa.service';
+import { Empresas } from 'src/app/models/empresas.model';
+import { EmpresasService } from 'src/app/services/empresas.service'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-ver-empresa',
@@ -10,18 +12,27 @@ import { EmpresasService } from 'src/app/services/empresa.service';
 })
 export class VerEmpresaComponent implements OnInit {
 
+  public empresaModelGetId: Empresas;
   public empresaModelGet: Empresas;
   public token;
+  public url : String = 'http://localhost:3000/api';
+  public headersVariable = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private empresaService: EmpresasService) {
-    this.token = this.empresaService.getToken();
+
+
+  constructor(public empresaService: EmpresasService,
+    public http:HttpClient) {
+    this.token = this.empresaService.getToken()
+    this.empresaModelGetId = new Empresas('','','','','','','');
   }
+
+
 
   ngOnInit(): void {
-    this.getEmpresas();
+     this.getEmpresas();
   }
 
-  getEmpresas(){
+    getEmpresas(){
     this.empresaService.obtenerEmpresas(this.token).subscribe(
       (res) => {
         this.empresaModelGet = res.Empresas;
@@ -32,4 +43,7 @@ export class VerEmpresaComponent implements OnInit {
       }
     )
   }
+
+
+
 }

@@ -206,6 +206,12 @@ function verEmpresa(req, res) {
   });
 }
 
+function verEmpresa(req, res) {
+  Empresas.find({}, (err, empresaEncontradas) => {
+    return res.status(200).send({ Empresas: empresaEncontradas });
+  });
+}
+
 module.exports = {
   crearAdmin,
   // -------- Municipios ------//

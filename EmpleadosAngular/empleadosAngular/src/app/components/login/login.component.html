@@ -6,8 +6,7 @@
 			<div class="field">
 				<label class="label">Email</label>
 				<p class="control ">
-					<input class="input" type="email" placeholder="Usuario" name="email" #email = "ngModel"
-          [(ngModel)]="empresaModel.email">
+					<input class="input" type="email" placeholder="Email">
 					<span class="icon is-small is-left">
 						<i class="fas fa-envelope"></i>
 					</span>
@@ -19,8 +18,7 @@
 			<div class="field">
 				<label class="label">Contraseña</label>
 				<p class="control">
-					<input class="input" type="password" placeholder="Contraseña" name="password" #password = "ngModel"
-          [(ngModel)]="empresaModel.password">
+					<input class="input" type="password" placeholder="Contraseña">
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
 					</span>
@@ -33,14 +31,14 @@
 				<div class="control">
 					<label class="checkbox">
 						<input type="checkbox">
-						Recuerdame
+						Acepto los terminos y condiciones <a href="#">Terminos y condiciones</a>
 					</label>
 				</div>
 			</div>
 
 			<div class="field is-grouped">
 				<div class="control">
-					<button type="submit" class="button is-link" (click)="login()">Iniciar sesion</button>
+					<button class="button is-link" (click)="login()">Login</button>
 				</div>
 				<div class="control">
 					<button class="button is-link">Cancelar</button>

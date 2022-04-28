@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresas } from 'src/app/models/empresa.model';
-import { EmpresasService } from 'src/app/services/empresa.service';
+import { Empresas } from 'src/app/models/empresas.model';
+import Swal from 'sweetalert2';
+import { EmpresasService } from 'src/app/services/empresas.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass'],
-  providers: [EmpresasService]
+  styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  public empresaModel : Empresas
+  public empresasModel: Empresas;
 
-  constructor(private empresaService: EmpresasService) {
-    this.empresaModel = new Empresas(
+  constructor(private empresasService: EmpresasService) {
+    this.empresasModel = new Empresas(
       "",
       "",
       "",
@@ -21,35 +21,48 @@ export class LoginComponent implements OnInit {
       "",
       ""
     );
-   }
+  }
 
   ngOnInit(): void {
-   console.log(this.empresaService.getToken())
   }
 
   getToken(){
-    this.empresaService.login(this.empresaModel, "true").subscribe(
-      (response) => {
-        console.log(response)
-        localStorage.setItem("token", response.token);
+    this.empresasService.login(this.empresasModel, "true").subscribe(
+      (response)=>{
+        console.log(response.token);
+        localStorage.setItem("token", response.token)
+
       },
-      (error) => {
+      (error)=>{
         console.log(<any>error);
+
+
       }
     )
   }
 
-  login() {
-    this.empresaService.login(this.empresaModel).subscribe(
-      (res) => {
-        console.log(res.empresa);
-        localStorage.setItem('identidad', JSON.stringify(res.empresa));
+  login(){
+    this.empresasService.login(this.empresasModel).subscribe(
+      (response)=>{
+        console.log(response.empresa);
+        localStorage.setItem('identidad', JSON.stringify(response.empresa))
         this.getToken();
+        Swal.fire({
+          icon: 'success',
+          title: 'Logeado correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
       },
-      (error) => {
+      (error)=>{
         console.log(<any>error);
+        Swal.fire({
+          icon: 'error',
+          title: error.error.mensaje,
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
-    )
+    );
   }
-
 }

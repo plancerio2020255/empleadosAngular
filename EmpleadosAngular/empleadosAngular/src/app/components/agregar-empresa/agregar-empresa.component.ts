@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresas } from 'src/app/models/empresa.model';
-import { EmpresasService } from 'src/app/services/empresa.service';
+import { Empresas } from 'src/app/models/empresas.model';
+import { EmpresasService } from 'src/app/services/empresas.service';
+
 @Component({
   selector: 'app-agregar-empresa',
   templateUrl: './agregar-empresa.component.html',
@@ -9,8 +10,9 @@ import { EmpresasService } from 'src/app/services/empresa.service';
 })
 export class AgregarEmpresaComponent implements OnInit {
 
-  public empresasModelPost: Empresas;
   public empresaModelGet: Empresas;
+  public empresaModelGetId: Empresas;
+  public empresasModelPost: Empresas;
   public token;
 
   constructor(private empresaService: EmpresasService) {
@@ -23,20 +25,50 @@ export class AgregarEmpresaComponent implements OnInit {
       '',
       ''
     )
-    this.token = this.empresaService.getToken()
+     this.token = this.empresaService.getToken()
   }
 
   ngOnInit(): void {
+    this.getEmpresas();
   }
 
-  postEmpresa() {
-    this.empresaService.agregarEmpresa(this.empresasModelPost).subscribe(
-      (res) => {
-        console.log (res)
-    },
-    (error) =>{
-      console.log( <any>error);
-    }
+  getEmpresas(){
+
+    this.empresaService.VerEmpresas(this.token).subscribe(
+      (response)=>{
+        this.empresaModelGet = response.Empresas;
+        console.log(this.empresaModelGet)
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+
+}
+
+  postEmpresas(){
+    this.empresaService.registrarEmpresa(this.empresasModelPost).subscribe(
+      (response) => {
+        console.log(response);
+        this.getEmpresas();
+
+        this.empresasModelPost.nombre = '';
+        this.empresasModelPost.usuario = '';
+        this.empresasModelPost.email = '';
+        this.empresasModelPost.password = '';
+        this.empresasModelPost.rol = '';
+        this.empresasModelPost.tipoEmpresa = '';
+
+
+      },
+      (error) => {
+        console.log(<any>error);
+      }
     )
   }
+
+
+
+
+
 }

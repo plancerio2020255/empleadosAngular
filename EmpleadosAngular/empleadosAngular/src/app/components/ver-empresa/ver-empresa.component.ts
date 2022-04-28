@@ -44,10 +44,6 @@ export class VerEmpresaComponent implements OnInit {
     )
   }
 
-  VerEmpresas(token) : Observable<any> {
 
-    let headersToken = this.headersVariable.set('Authorization', token )
-    return this.http.get(this.url + '/empresas', { headers: headersToken});
-  }
 
 }

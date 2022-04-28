@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-//import { Sucursales } from '../models/sucursales.model'
+import { Sucursales } from '../models/sucursales.model'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class SucursalesService {
 
   constructor(public http: HttpClient) { }
 
-  /*agregarSucursales(modeloSucursales: Sucursales, token): Observable<any> {
+  agregarSucursales(modeloSucursales: Sucursales, token): Observable<any> {
 
     let headersToken = this.headersVariable.set('Authorization', token )
     let parametros = JSON.stringify(modeloSucursales);
@@ -27,7 +27,7 @@ export class SucursalesService {
     let headersToken = this.headersVariable.set('Authorization', token)
 
     return this.http.put(this.url + '/'+modeloSucursal._id, parametros, { headers: headersToken })
-  }*/
+  }
 
   eliminarSucursales( idSucursales, token ): Observable<any> {
 

@@ -14,13 +14,6 @@ export class EmpresasService {
   constructor(public http: HttpClient) { }
 
 
-
-  VerEmpresas(token) : Observable<any> {
-
-    let headersToken = this.headersVariable.set('Authorization', token )
-    return this.http.get(this.url + '/agregar-empresa', { headers: headersToken});
-  }
-
   login(usuario, obtenerToken = null): Observable<any> {
 
     if(obtenerToken != null){
@@ -76,6 +69,26 @@ export class EmpresasService {
     let parametros = JSON.stringify(modeloEmpresa);
 
     return this.http.post(this.url + '/AgregarEmpresa', parametros, { headers: this.headersVariable})
+  }
+
+
+  VerEmpresas(token) : Observable<any> {
+
+    let headersToken = this.headersVariable.set('Authorization', token )
+    return this.http.get(this.url + '/', { headers: headersToken});
+  }
+
+  eliminarEmpresas( idEmpresas, token ): Observable<any> {
+
+    let headersToken = this.headersVariable.set('Authorization', token )
+    return this.http.delete(this.url + '/'+ idEmpresas, { headers: headersToken})
+  }
+
+  editarEmpresa(modeloEmpresa:Empresas, token):Observable<any> {
+    let parametros = JSON.stringify(modeloEmpresa);
+    let headersToken = this.headersVariable.set('Authorization', token)
+
+    return this.http.put(this.url + ''+ modeloEmpresa._id, parametros, { headers: headersToken})
   }
 
 }

@@ -1,10 +1,46 @@
 const Empresas = require('../models/empresa.model')
-
 const Tipo = require('../models/tipoEmpresa.model')
-
 const Municipios = require('../models/municipios.model')
-
 const bcrypt = require('bcrypt-nodejs')
+
+
+function Login(req, res) {
+  var parametros = req.body;
+  Empresas.findOne({ email: parametros.email }, (err, empresasEncontradas) => {
+    if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
+    if (empresasEncontradas) {
+      // COMPARO CONTRASENA SIN ENCRIPTAR CON LA ENCRIPTADA
+      bcrypt.compare(
+        parametros.password,
+        empresasEncontradas.password,
+        (err, verificacionPassword) => {
+          //TRUE OR FALSE
+          // VERIFICO SI EL PASSWORD COINCIDE EN BASE DE DATOS
+          if (verificacionPassword) {
+            // SI EL PARAMETRO OBTENERTOKEN ES TRUE, CREA EL TOKEN
+            if (parametros.obtenerToken === "true") {
+              return res
+                .status(200)
+                .send({ token: jwt.crearToken(empresasEncontradas) });
+            } else {
+              empresasEncontradas.password = undefined;
+              return res.status(200).send({ empresas: empresasEncontradas });
+            }
+          } else {
+            return res
+              .status(500)
+              .send({ mensaje: "Las contrasena no coincide" });
+          }
+        }
+      );
+    } else {
+      return res
+        .status(500)
+        .send({ mensaje: "Error, el correo no se encuentra registrado." });
+    }
+  });
+}
+
 
 function crearAdmin (req, res) {
   const administrador = new Empresas()
@@ -194,6 +230,7 @@ function verEmpresa(req, res) {
 
 module.exports = {
   crearAdmin,
+  Login,
   // -------- Municipios ------//
   crearMunicipio,
   editarMunicipio,

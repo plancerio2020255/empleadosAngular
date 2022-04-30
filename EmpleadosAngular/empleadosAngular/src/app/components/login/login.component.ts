@@ -44,9 +44,11 @@ export class LoginComponent implements OnInit {
   login(){
     this.empresasService.login(this.empresasModel).subscribe(
       (response)=>{
-        console.log(response.empresa);
-        localStorage.setItem('identidad', JSON.stringify(response.empresa))
+
+        console.log(response.Empresas);
+        localStorage.setItem('identidad', JSON.stringify(response.Empresas))
         this.getToken();
+      
         Swal.fire({
           icon: 'success',
           title: 'Logeado correctamente',
@@ -65,4 +67,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+
+  
 }

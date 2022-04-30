@@ -17,6 +17,7 @@ import { VerSucursalComponent } from './components/ver-sucursal/ver-sucursal.com
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { EmpresaComponent } from './components/empresa/empresa.component';
+import { EditarEmpresaComponent } from './components/editar-empresa/editar-empresa.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { EmpresaComponent } from './components/empresa/empresa.component';
     EliminarSucursalComponent,
     EditarSucursalComponent,
     VerSucursalComponent,
-    EmpresaComponent
+    EmpresaComponent,
+    EditarEmpresaComponent
   ],
   imports: [
     BrowserModule,

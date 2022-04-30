@@ -96,7 +96,9 @@ export class LoginComponent implements OnInit {
       (response)=>{
         console.log(response.empresa);
         localStorage.setItem('identidad', JSON.stringify(response.empresa))
+
         this.getToken();
+
         Swal.fire({
           icon: 'success',
           title: 'Logeado correctamente',
@@ -115,4 +117,8 @@ export class LoginComponent implements OnInit {
       }
     );
   }*/
+  }
+
+
+
 }

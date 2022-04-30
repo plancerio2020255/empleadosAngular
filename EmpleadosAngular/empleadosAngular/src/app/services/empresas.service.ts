@@ -14,13 +14,14 @@ export class EmpresasService {
   constructor(public http: HttpClient) { }
 
 
-  login(Empresa, obtenerToken = null): Observable<any> {
+
+  login(empresa, obtenerToken = null): Observable<any> {
 
     if(obtenerToken != null){
-      Empresa.obtenerToken = obtenerToken;
+      empresa.obtenerToken = obtenerToken;
     }
 
-    let params = JSON.stringify(Empresa);
+    let params = JSON.stringify(empresa);
 
     return this.http.post(this.url + '/login', params, { headers: this.headersVariable });
   }

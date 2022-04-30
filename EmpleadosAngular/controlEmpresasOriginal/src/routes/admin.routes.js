@@ -6,6 +6,8 @@ const api = express.Router()
 
 // Empresas
 api.post('/login', controladorAdmin.Login)
+
+
 api.post('/agregarEmpresa', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.agregarEmpresa)
 api.put('/editarEmpresa', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.editarEmpresa)
 api.delete('/eliminarEmpresa', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.eliminarEmpresa)

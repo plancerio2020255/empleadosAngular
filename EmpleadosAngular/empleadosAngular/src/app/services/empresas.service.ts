@@ -14,13 +14,13 @@ export class EmpresasService {
   constructor(public http: HttpClient) { }
 
 
-  login(usuario, obtenerToken = null): Observable<any> {
+  login(Empresa, obtenerToken = null): Observable<any> {
 
     if(obtenerToken != null){
-      usuario.obtenerToken = obtenerToken;
+      Empresa.obtenerToken = obtenerToken;
     }
 
-    let params = JSON.stringify(usuario);
+    let params = JSON.stringify(Empresa);
 
     return this.http.post(this.url + '/login', params, { headers: this.headersVariable });
   }
@@ -68,7 +68,7 @@ export class EmpresasService {
   agregarEmpresas(modeloEmpresa: Empresas) {
     let parametros = JSON.stringify(modeloEmpresa);
 
-    return this.http.post(this.url + '/AgregarEmpresa', parametros, { headers: this.headersVariable})
+    return this.http.post(this.url + '/agregarEmpresa', parametros, { headers: this.headersVariable})
   }
 
 

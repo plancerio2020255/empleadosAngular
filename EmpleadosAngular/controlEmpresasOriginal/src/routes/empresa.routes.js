@@ -5,6 +5,6 @@ const md_autenticacion = require('../middlewares/autenticacion')
 
 const api = express.Router()
 
-api.post('/login', controladorEmpresas.Login)
+
 
 module.exports = api

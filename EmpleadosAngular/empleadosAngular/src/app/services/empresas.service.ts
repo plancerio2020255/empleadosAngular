@@ -68,7 +68,7 @@ export class EmpresasService {
   agregarEmpresas(modeloEmpresa: Empresas) {
     let parametros = JSON.stringify(modeloEmpresa);
 
-    return this.http.post(this.url + '/AgregarEmpresa', parametros, { headers: this.headersVariable})
+    return this.http.post(this.url + '/agregarEmpresa', parametros, { headers: this.headersVariable})
   }
 
 

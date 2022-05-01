@@ -6,7 +6,6 @@ import { EditarEmpresaComponent } from './components/editar-empresa/editar-empre
 import { EditarSucursalComponent } from './components/editar-sucursal/editar-sucursal.component';
 import { EliminarEmpresaComponent } from './components/eliminar-empresa/eliminar-empresa.component';
 import { EliminarSucursalComponent } from './components/eliminar-sucursal/eliminar-sucursal.component';
-import { EmpresaComponent } from './components/empresa/empresa.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import {LoginComponent} from './components/login/login.component';
 import { ProductoComponent } from './components/producto/producto.component';
@@ -21,7 +20,6 @@ const routes: Routes = [
   //Rutas de Productos
   {path: 'productos', component: ProductoComponent},
   //Rutas de empresas
-  {path: 'Empresa', component: EmpresaComponent},
   {path: 'editarEmpresa', component: EditarEmpresaComponent},
   {path: 'agregarEmpresa', component: AgregarEmpresaComponent},
   {path: 'eliminarEmpresa', component: EliminarEmpresaComponent},

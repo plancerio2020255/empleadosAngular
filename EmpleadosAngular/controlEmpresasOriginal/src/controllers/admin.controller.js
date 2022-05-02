@@ -265,8 +265,27 @@ function editarEmpresa (req, res) {
   })
 }
 
-function eliminarEmpresa (req, res) {
-  const idEmpresa = req.params.idEmpre
+function eliminarEmpresa(req, res) {
+  var idUsuario = req.params.idUser;
+
+  if (req.user.rol !== "SuperAdmin") {
+    return res
+      .status(500)
+      .send({ mensaje: "No tiene los permisos para eliminar Empresas." });
+  }
+
+  if (req.user.sub == idUsuario) {
+    console.log(req.user.nombre);
+    return res.status(500).send({ mensaje: "El admin no se puede borrar" });
+  }
+
+  Empresas.findByIdAndDelete(idUsuario, (err, UsuarioEliminado) => {
+    if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
+    if (!UsuarioEliminado)
+      return res.status(500).send({ mensaje: "Error al eliminar el producto" });
+
+    return res.status(200).send({ usuario: UsuarioEliminado });
+  });
 }
 
 function verEmpresa(req, res) {

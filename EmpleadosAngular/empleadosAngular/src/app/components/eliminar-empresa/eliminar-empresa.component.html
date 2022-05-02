@@ -4,30 +4,31 @@
       <div class="columns is-centered" >
         <div class="column is-4-desktop is-3-widescreen"  >
 
-            <div class="field">
-              <label class="label">Selecciones la Empresa a Eliminar</label>
-              <div class="select is-rounded">
-                <select>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
+          <div class="col-lg-3 col-md-6 d-flex stat my-3">
+            <div class="mx-auto">
+              <h6 class="text-muted">Nombre</h6>
+              <h3 class="font-weight-bold">{{empr.nombre}}</h3>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex stat my-3">
+            <div class="mx-auto">
+              <h6 class="text-muted">Gmail</h6>
+              <h3 class="font-weight-bold">{{empr.email}}</h3>
+            </div>
+          </div>
+
+            <div class="col-lg-3 col-md-4 d-flex">
+              <button class="btn btn-primary w-100 align-self-center" (click)="eliminarEmpresas()">Eliminar Empresas</button>
             </div>
 
-
-          <div class="field is-grouped">
-            <div class="control">
-              <button class="btn btn-primary w-100 align-self-center" (click)="eliminarEmpresas(empr.id )">Eliminar Empresas</button>
-            </div>
             <div class="control">
               <button class="button is-link" routerLink="/inicio">Cancelar</button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-  </div>
 </section>
 
 

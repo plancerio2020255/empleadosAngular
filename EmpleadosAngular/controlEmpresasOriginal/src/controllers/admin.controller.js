@@ -1,5 +1,6 @@
 const Empresas = require('../models/empresa.model')
 const Tipo = require('../models/tipoEmpresa.model')
+const jwt = require('../services/jwt')
 const Municipios = require('../models/municipios.model')
 const bcrypt = require('bcrypt-nodejs')
 
@@ -9,16 +10,12 @@ function Login(req, res) {
   Empresas.findOne({ email: parametros.email }, (err, empresasEncontradas) => {
     if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
     if (empresasEncontradas) {
-      // COMPARO CONTRASENA SIN ENCRIPTAR CON LA ENCRIPTADA
       bcrypt.compare(
         parametros.password,
         empresasEncontradas.password,
         (err, verificacionPassword) => {
-          //TRUE OR FALSE
-          // VERIFICO SI EL PASSWORD COINCIDE EN BASE DE DATOS
           if (verificacionPassword) {
-            // SI EL PARAMETRO OBTENERTOKEN ES TRUE, CREA EL TOKEN
-            if (parametros.obtenerToken === "true") {
+            if (parametros.obtenerToken == "true") {
               return res
                 .status(200)
                 .send({ token: jwt.crearToken(empresasEncontradas) });
@@ -40,6 +37,56 @@ function Login(req, res) {
     }
   });
 }
+
+function RegistrarEmpresa(req, res) {
+  var parametro = req.body;
+  var usuarioModel = new Empresas();
+
+  if (
+    parametro.nombre &&
+    parametro.email &&
+    parametro.password &&
+    parametro.tipoEmpresa
+  ) {
+    usuarioModel.nombre = parametro.nombre;
+    usuarioModel.email = parametro.email;
+    usuarioModel.direccion = parametro.direccion;
+    usuarioModel.password = parametro.password;
+    usuarioModel.rol = "SuperAdmin";
+    usuarioModel.tipoEmpresa = parametro.tipoEmpresa;
+
+    Empresas.find({ email: parametro.email }, (err, usuarioEncontrado) => {
+      if (usuarioEncontrado.length == 0) {
+        bcrypt.hash(
+          parametro.password,
+          null,
+          null,
+          (err, passwordEncriptada) => {
+            usuarioModel.password = passwordEncriptada;
+
+            usuarioModel.save((err, usuarioGuardado) => {
+              if (err)
+                return res
+                  .status(500)
+                  .send({ mensaje: "Error en la peticion" });
+              if (!usuarioGuardado)
+                return res
+                  .status(500)
+                  .send({ mensaje: "Error al agregar Empresa" });
+
+              return res.status(200).send({ usuario: usuarioGuardado });
+            });
+          }
+        );
+      } else {
+        return res.status(500).send({ mensaje: "La empresa ya a sido creada" });
+      }
+    });
+  } else {
+    return res.status(500).send({ mensaje: "Enviar parametros obligatorios" });
+  }
+}
+
 
 
 function crearAdmin (req, res) {
@@ -218,8 +265,27 @@ function editarEmpresa (req, res) {
   })
 }
 
-function eliminarEmpresa (req, res) {
-  const idEmpresa = req.params.idEmpre
+function eliminarEmpresa(req, res) {
+  var idUsuario = req.params.idUser;
+
+  if (req.user.rol !== "SuperAdmin") {
+    return res
+      .status(500)
+      .send({ mensaje: "No tiene los permisos para eliminar Empresas." });
+  }
+
+  if (req.user.sub == idUsuario) {
+    console.log(req.user.nombre);
+    return res.status(500).send({ mensaje: "El admin no se puede borrar" });
+  }
+
+  Empresas.findByIdAndDelete(idUsuario, (err, UsuarioEliminado) => {
+    if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
+    if (!UsuarioEliminado)
+      return res.status(500).send({ mensaje: "Error al eliminar el producto" });
+
+    return res.status(200).send({ usuario: UsuarioEliminado });
+  });
 }
 
 function verEmpresa(req, res) {
@@ -243,5 +309,6 @@ module.exports = {
   // -------- Tipo Empresas ------//
   crearTipoEmpresa,
   editarTipoEmpresa,
-  deleteTipoEmpresa
+  deleteTipoEmpresa,
+  RegistrarEmpresa
 }

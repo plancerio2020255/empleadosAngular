@@ -9,5 +9,4 @@ api.put('/editarSucursales', [md_autenticacion.Auth, md_rol.verEmpresa], control
 api.delete('/eliminarEmpresa', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.eliminarSucursal);
 api.get('/verEmpresas', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.verSucursalesEmpresa);
 
-
 module.exports = api

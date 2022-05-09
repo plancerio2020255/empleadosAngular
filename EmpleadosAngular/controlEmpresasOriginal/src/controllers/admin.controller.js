@@ -1,7 +1,42 @@
 const Empresas = require('../models/empresa.model')
-
 const Tipo = require('../models/tipoEmpresa.model')
+const jwt = require('../services/jwt')
+const Municipios = require('../models/municipios.model')
+const bcrypt = require('bcrypt-nodejs')
 
+
+function Login(req, res) {
+  var parametros = req.body;
+  Empresas.findOne({ email: parametros.email }, (err, empresasEncontradas) => {
+    if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
+    if (empresasEncontradas) {
+      bcrypt.compare(
+        parametros.password,
+        empresasEncontradas.password,
+        (err, verificacionPassword) => {
+          if (verificacionPassword) {
+            if (parametros.obtenerToken == "true") {
+              return res
+                .status(200)
+                .send({ token: jwt.crearToken(empresasEncontradas) });
+            } else {
+              empresasEncontradas.password = undefined;
+              return res.status(200).send({ empresas: empresasEncontradas });
+            }
+          } else {
+            return res
+              .status(500)
+              .send({ mensaje: "Las contrasena no coincide" });
+          }
+        }
+      );
+    } else {
+      return res
+        .status(500)
+        .send({ mensaje: "Error, el correo no se encuentra registrado." });
+    }
+  });
+}
 
 function RegistrarAdmin(req, res) {
   var parametro = req.body;
@@ -52,9 +87,7 @@ function RegistrarAdmin(req, res) {
   }
 }
 
-const bcrypt = require('bcrypt-nodejs')
 
-// ------------------- Crear Admin -------------------- // 
 
 function crearAdmin (req, res) {
   const administrador = new Empresas()
@@ -88,7 +121,6 @@ function crearAdmin (req, res) {
     }
   })
 }
-
 
 // ------------------- Municipios------------------ //
 
@@ -206,7 +238,7 @@ function agregarEmpresa (req, res) {
             if (err) return res.status(500).send({ mensaje: 'Error en la peticion' })
             if (!empresaGuardada) return res.status(500).send({ mensaje: 'Error al guardar la empresa' })
 
-            return res.status(200).send({ mensaje: 'Se ha registrado una nueva empresa: ' , empresa: empresaGuardada })
+            return res.status(200).send({ empresa: empresaGuardada })
           })
         })
       }
@@ -233,24 +265,26 @@ function editarEmpresa (req, res) {
   })
 }
 
-function eliminarEmpresa (req, res) {
-  const idEmpresa = req.params.idEmpre
+function eliminarEmpresa(req, res) {
+  var idUsuario = req.params.idUser;
 
-  if(req.user.sub == idEmpre) {
-    return res.status(500).send({mensaje: 'Nos vamos a quedar sin admin!'})
+  if (req.user.rol !== "SuperAdmin") {
+    return res
+      .status(500)
+      .send({ mensaje: "No tiene los permisos para eliminar Empresas." });
   }
 
-  Empresa.findById(idEmpre,(err, empresaEliminada) => {
-    if(err) return res.status(500).send({mensaje:'Error en la peticion'})
-    if(!empresaEliminada) return res.status({mensaje:'Error al eliminar la emresa'})
+  if (req.user.sub == idUsuario) {
+    console.log(req.user.nombre);
+    return res.status(500).send({ mensaje: "El admin no se puede borrar" });
+  }
 
-    return res.status(200).send({empresa : empresaEliminada})
-  })
-}
+  Empresas.findByIdAndDelete(idUsuario, (err, UsuarioEliminado) => {
+    if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
+    if (!UsuarioEliminado)
+      return res.status(500).send({ mensaje: "Error al eliminar el producto" });
 
-function verEmpresa(req, res) {
-  Empresas.find({}, (err, empresaEncontradas) => {
-    return res.status(200).send({ Empresas: empresaEncontradas });
+    return res.status(200).send({ usuario: UsuarioEliminado });
   });
 }
 
@@ -268,6 +302,8 @@ function verSucursales(req,res) {
 
 module.exports = {
   crearAdmin,
+  Login,
+  RegistrarAdmin,
   // -------- Municipios ------//
   crearMunicipio,
   editarMunicipio,
@@ -280,8 +316,5 @@ module.exports = {
   // -------- Tipo Empresas ------//
   crearTipoEmpresa,
   editarTipoEmpresa,
-
   deleteTipoEmpresa,
-  RegistrarAdmin,
-
 }

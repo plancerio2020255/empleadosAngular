@@ -1,8 +1,8 @@
 <section class="hero is-fullheight-with-navbar" >
   <div class="hero-body" >
   <div class="container" >
-    <div class="columns is-left" >
-      <div class="column is-4 is-half" *ngFor="let empr of empresasModelGet">
+    <div class="columns is-centered is-8 is-variable" >
+      <div class=" column is-4-tablet is-3-desktop" *ngFor="let empr of empresasModelGet">
         <div class="card" >
           <div class="card-image">
             <figure class="image is-4by3">
@@ -24,6 +24,7 @@
               <div class="control">
                 <button  class="button is-link is-light" (click)="eliminarEmpresas()">Eliminar Empresas</button>
               </div>
+             
               <div class="control">
                 <button class="button is-link is-light"  routerLink="/inicio">Cancelar</button>
               </div>

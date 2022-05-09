@@ -2,7 +2,55 @@ const Empresas = require('../models/empresa.model')
 
 const Tipo = require('../models/tipoEmpresa.model')
 
-const Municipios = require('../models/municipios.model')
+
+function RegistrarAdmin(req, res) {
+  var parametro = req.body;
+  var usuarioModel = new Empresas();
+
+  if (
+    parametro.nombre &&
+    parametro.email &&
+    parametro.password &&
+    parametro.tipoEmpresa
+  ) {
+    usuarioModel.nombre = parametro.nombre;
+    usuarioModel.email = parametro.email;
+    usuarioModel.direccion = parametro.direccion;
+    usuarioModel.password = parametro.password;
+    usuarioModel.rol = "SuperAdmin";
+    usuarioModel.tipoEmpresa = parametro.tipoEmpresa;
+
+    Empresas.find({ email: parametro.email }, (err, usuarioEncontrado) => {
+      if (usuarioEncontrado.length == 0) {
+        bcrypt.hash(
+          parametro.password,
+          null,
+          null,
+          (err, passwordEncriptada) => {
+            usuarioModel.password = passwordEncriptada;
+
+            usuarioModel.save((err, usuarioGuardado) => {
+              if (err)
+                return res
+                  .status(500)
+                  .send({ mensaje: "Error en la peticion" });
+              if (!usuarioGuardado)
+                return res
+                  .status(500)
+                  .send({ mensaje: "Error al agregar Empresa" });
+
+              return res.status(200).send({ usuario: usuarioGuardado });
+            });
+          }
+        );
+      } else {
+        return res.status(500).send({ mensaje: "La empresa ya a sido creada" });
+      }
+    });
+  } else {
+    return res.status(500).send({ mensaje: "Enviar parametros obligatorios" });
+  }
+}
 
 const bcrypt = require('bcrypt-nodejs')
 
@@ -149,7 +197,7 @@ function agregarEmpresa (req, res) {
         modeloEmpresa.nombre = parametros.nombre
         modeloEmpresa.usuario = parametros.usuario
         modeloEmpresa.email = parametros.email
-        modeloEmpresa.rol = 'Empresas'
+        modeloEmpresa.rol = 'Empresa'
 
         bcrypt.hash(parametros.password, null, null, (err, passwordEncriptada) => {
           modeloEmpresa.password = passwordEncriptada
@@ -212,6 +260,12 @@ function verEmpresa(req, res) {
   });
 }
 
+function verSucursales(req,res) {
+  Sucursales.find({}, (err, sucursalesEncontradas) => {
+      return res.status(200).send({ Sucursales: sucursalesEncontradas });
+    });
+}
+
 module.exports = {
   crearAdmin,
   // -------- Municipios ------//
@@ -226,5 +280,8 @@ module.exports = {
   // -------- Tipo Empresas ------//
   crearTipoEmpresa,
   editarTipoEmpresa,
-  deleteTipoEmpresa
+
+  deleteTipoEmpresa,
+  RegistrarAdmin,
+
 }

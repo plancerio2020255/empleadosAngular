@@ -6,7 +6,7 @@ import { EmpresasService } from '../services/empresas.service'
 @Injectable({
   providedIn: 'root'
 })
-export class AdminValiGuard implements CanActivate {
+export class EmpresaGuardsService implements CanActivate {
   public identidad;
 
   constructor(

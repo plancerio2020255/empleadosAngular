@@ -95,11 +95,22 @@ getEmpresasId(idEmpresa){
         this.empresasModelPost.password = '';
         this.empresasModelPost.rol = '';
         this.empresasModelPost.tipoEmpresa = '';
-
+        Swal.fire({
+          icon: 'success',
+          title: 'Empresa Agreada',
+          showConfirmButton: false,
+          timer: 1500
+        })
 
       },
       (error) => {
-        console.log(<any>error);
+        console.log(<any>error);  
+        Swal.fire({
+          icon: 'error',
+          title: error.error.mensaje,
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     )
   }
@@ -109,3 +120,5 @@ getEmpresasId(idEmpresa){
 
 
 }
+
+

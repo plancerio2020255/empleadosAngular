@@ -86,7 +86,7 @@ export class EmpresasService {
   eliminarEmpresas( idEmpresas, token ): Observable<any> {
 
     let headersToken = this.headersVariable.set('Authorization', token )
-    return this.http.delete(this.url + '/eliminarEmpresa'+ idEmpresas, { headers: headersToken})
+    return this.http.delete(this.url + '/eliminarEmpresa/'+ idEmpresas, { headers: headersToken})
   }
 
   editarEmpresa(modeloEmpresa:Empresas, token):Observable<any> {

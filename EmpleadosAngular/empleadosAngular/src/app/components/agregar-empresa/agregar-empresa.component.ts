@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Empresas } from 'src/app/models/empresas.model';
 import { EmpresasService } from 'src/app/services/empresas.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-empresa',
@@ -46,6 +47,42 @@ export class AgregarEmpresaComponent implements OnInit {
 
 }
 
+putEmpresa(){
+  this.empresaService.editarEmpresa(this.empresaModelGetId, this.token).subscribe(
+    (response)=> {
+      console.log(response);
+      this.getEmpresas()
+    },
+    (error)=>{
+      console.log(<any>error);
+      Swal.fire({
+        icon: 'error',
+        title: error.error.mensaje,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  )
+}
+
+getEmpresasId(idEmpresa){
+  this.empresaService.obtenerEmpresaId(idEmpresa,this.token).subscribe(
+    (response)=>{
+      this.empresaModelGetId = response.Empresa;
+      console.log(this.empresaModelGetId);
+    },
+    (error)=> {
+      console.log(<any>error);
+      Swal.fire({
+        icon: 'error',
+        title: error.error.mensaje,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  )
+}
+
   postEmpresas(){
     this.empresaService.registrarEmpresa(this.empresasModelPost).subscribe(
       (response) => {
@@ -58,11 +95,22 @@ export class AgregarEmpresaComponent implements OnInit {
         this.empresasModelPost.password = '';
         this.empresasModelPost.rol = '';
         this.empresasModelPost.tipoEmpresa = '';
-
+        Swal.fire({
+          icon: 'success',
+          title: 'Empresa Agreada',
+          showConfirmButton: false,
+          timer: 1500
+        })
 
       },
       (error) => {
-        console.log(<any>error);
+        console.log(<any>error);  
+        Swal.fire({
+          icon: 'error',
+          title: error.error.mensaje,
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     )
   }
@@ -72,3 +120,5 @@ export class AgregarEmpresaComponent implements OnInit {
 
 
 }
+
+

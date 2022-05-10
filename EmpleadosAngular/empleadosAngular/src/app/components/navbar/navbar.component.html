@@ -19,19 +19,15 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item" routerLink="/agregarEmpresa">
-            Agregar empresas
-          </a>
-          <a class="navbar-item" routerLink="/editarEmpresa">
-            Editar empresas
-          </a>
+
+         
           <a class="navbar-item" routerLink="/eliminarEmpresa">
-            Eliminar empresas
+            Empresas
           </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item" routerLink="/verEmpresa">
-            Ver empresas
-          </a>
+          
+         
+
+
         </div>
 
       </div>
@@ -43,19 +39,27 @@
 
         <div class="navbar-dropdown">
           <a class="navbar-item" routerLink="agregarSucursales">
-            Agregar sucursales
+            Sucursales
           </a>
-          <a class="navbar-item" >
-            Editar sucursales
-          </a>
-          <a class="navbar-item" routerLink="eliminarSucursales">
-            Eliminar sucursales
-          </a>
-          <hr class="navbar-divider" color="#29a381">
-          <a class="navbar-item" routerLink="verSucursales">
-            Ver sucursales
+         
+        </div>
+
+        
+
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link navbar__options">
+          Productos
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" routerLink="productos">
+            Producto
           </a>
         </div>
+
+        
 
       </div>
 
@@ -64,15 +68,20 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <span class="tag is-primary is-medium" *ngIf="empresaService.getIdentidad()"> {{empresaService.getIdentidad().nombre}} </span>
-          <a class="button is-primary" routerLink="/register">
-            <strong>Registrar</strong>
-          </a>
           <a class="button is-light" routerLink="/login">
             Login
           </a>
+         
         </div>
       </div>
     </div>
-  </div>
+    
+        <div class="buttons">
+          <a class="button is-light" routerLink="/agregarEmpresa">
+            Registrar Empresa
+          </a>
+        </div>
+      </div>
+  
+  
 </nav>

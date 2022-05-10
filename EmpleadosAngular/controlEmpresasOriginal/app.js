@@ -11,6 +11,6 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use('/api', empresasRoute, adminRoute) 
+app.use('/api', empresasRoute, adminRoute, ) 
 
 module.exports = app;

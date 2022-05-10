@@ -4,7 +4,7 @@ const md_autenticacion = require('../middlewares/autenticacion');
 const md_role = require('../middlewares/roles');
 const api = express.Router()
 
-// Empresas
+/ Empresas
 api.post('/login', controladorAdmin.Login)
 api.post('/registrarAdmin',[md_autenticacion.Auth, md_role.verAdmin],controladorAdmin.RegistrarAdmin)
 api.post('/registrar', controladorAdmin.agregarEmpresa)

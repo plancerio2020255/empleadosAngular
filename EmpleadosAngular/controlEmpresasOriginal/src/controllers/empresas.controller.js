@@ -112,5 +112,6 @@ module.exports = {
     editarSucursal,
     eliminarSucursal,
     verSucursalesEmpresa,
+
     agregarProducto,
 }

@@ -8,5 +8,6 @@ api.post('/agregarSucursales', [md_autenticacion.Auth, md_rol.verEmpresa], contr
 api.put('/editarSucursales/:idSucursal', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.editarSucursal);
 api.delete('/eliminarSucursal/:idSucursal', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.eliminarSucursal);
 api.get('/verSucursales', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.verSucursalesEmpresa);
+api.post('/agregarProducto', [md_autenticacion.Auth, md_rol.verEmpresa] ,controladorEmpresas.agregarProducto);
 
 module.exports = api

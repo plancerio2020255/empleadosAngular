@@ -1,7 +1,5 @@
-const Empresas = require('../models/empresa.model');
 const Sucursales = require('../models/sucursales.model');
-const bcrypt = require('bcrypt-nodejs');
-const jwt = require('../services/jwt');
+const Productos = require('../models/productos.model');
 
 function agregarSucursal(req, res) {
     var parametro = req.body;
@@ -70,9 +68,50 @@ function verSucursalesEmpresa(req,res) {
       });
 }
 
+function agregarProducto(req,res) {
+    var parametros = req.body;
+    var productosModel = new Productos();
+
+    if(parametros.nombre && parametros.proveedor && parametros.stock) {
+        productosModel.nombreProducto = parametros.nombre;
+        productosModel.nombreProveedor = parametros.proveedor;
+        productosModel.stock = parametros.stock;
+        productosModel.idEmpresa = req.user.sub;
+
+        Productos.find({nombreProducto: parametros.nombre, idEmpresa: req.user.sub}, (err, productoEncontrado)=>{
+            if(productoEncontrado.length==0) {
+                productosModel.save((err, productoGuardado) => {
+                    if(err) return res.status(500).send({mensaje: "Error en la peticion"});
+                    if(!productoGuardado) return res.status(500).send({mensaje: 'Error al agregar sucursal'});
+                    return res.status(200).send({producto: productoGuardado});
+                })
+            } else {
+                return res.status(500).send({mensaje:'Este producto ya existe'});
+            }
+        })
+    } else {
+        return res.status(500).send({mensaje: 'Debe enviar los parametros obligatorios'})
+    }
+}
+
+function editarProducto(req,res) {
+
+}
+
+function eliminarProducto(req,res) {
+
+}
+
+function enviarProductoSucursal(req,res) {
+
+}
+
+
 module.exports = {
     agregarSucursal,
     editarSucursal,
     eliminarSucursal,
     verSucursalesEmpresa,
+
+    agregarProducto,
 }

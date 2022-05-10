@@ -38,7 +38,7 @@ function Login(req, res) {
   });
 }
 
-function RegistrarEmpresa(req, res) {
+function RegistrarAdmin(req, res) {
   var parametro = req.body;
   var usuarioModel = new Empresas();
 
@@ -229,7 +229,7 @@ function agregarEmpresa (req, res) {
         modeloEmpresa.nombre = parametros.nombre
         modeloEmpresa.usuario = parametros.usuario
         modeloEmpresa.email = parametros.email
-        modeloEmpresa.rol = 'Empresas'
+        modeloEmpresa.rol = 'Empresa'
 
         bcrypt.hash(parametros.password, null, null, (err, passwordEncriptada) => {
           modeloEmpresa.password = passwordEncriptada
@@ -294,9 +294,16 @@ function verEmpresa(req, res) {
   });
 }
 
+function verSucursales(req,res) {
+  Sucursales.find({}, (err, sucursalesEncontradas) => {
+      return res.status(200).send({ Sucursales: sucursalesEncontradas });
+    });
+}
+
 module.exports = {
   crearAdmin,
   Login,
+  RegistrarAdmin,
   // -------- Municipios ------//
   crearMunicipio,
   editarMunicipio,
@@ -310,5 +317,4 @@ module.exports = {
   crearTipoEmpresa,
   editarTipoEmpresa,
   deleteTipoEmpresa,
-  RegistrarEmpresa
 }

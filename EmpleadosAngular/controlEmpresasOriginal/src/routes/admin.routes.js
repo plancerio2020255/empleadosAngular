@@ -4,13 +4,12 @@ const md_autenticacion = require('../middlewares/autenticacion');
 const md_role = require('../middlewares/roles');
 const api = express.Router()
 
-// Empresas
+/ Empresas
 api.post('/login', controladorAdmin.Login)
-api.post('/registrarEmpresa' ,controladorAdmin.RegistrarEmpresa)
-
-api.post('/agregarEmpresa', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.agregarEmpresa)
+api.post('/registrarAdmin',[md_autenticacion.Auth, md_role.verAdmin],controladorAdmin.RegistrarAdmin)
+api.post('/registrar', controladorAdmin.agregarEmpresa)
 api.put('/editarEmpresa', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.editarEmpresa)
-api.delete('/eliminarEmpresa', md_autenticacion.Auth, controladorAdmin.eliminarEmpresa)
+api.delete('/eliminarEmpresa/:idUsuario', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.eliminarEmpresa)
 api.get('/verEmpresa', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.verEmpresa)
 //Municipios
 api.post('/crearMunicipio', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.crearMunicipio)

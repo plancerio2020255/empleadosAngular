@@ -40,7 +40,7 @@ function editarSucursal(req, res) {
         if(!sucursalEncontrada){
         return res.status(500).send({mensaje: 'Solo puede editar sucursales de su propiedades'});
         } else {
-            Sucursales.findByIdandUpdate(idSucursal, parametros, {new:true}, (err, sucursalEditada)=>{
+            Sucursales.findByIdAndUpdate(idSucursal, parametros, {new:true}, (err, sucursalEditada)=>{
                 if(err) return res.status(500).send({mensaje: 'Error en la peticion'})
                 if(!sucursalEditada) return res.status(500).send({mensaje: 'Error al editar esta sucursal'});
                 return res.status(200).send({sucursal: sucursalEditada});

@@ -5,8 +5,8 @@ const md_rol = require('../middlewares/roles');
 const api = express.Router();
 
 api.post('/agregarSucursales', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.agregarSucursal);
-api.put('/editarSucursales', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.editarSucursal);
-api.delete('/eliminarEmpresa', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.eliminarSucursal);
-api.get('/verEmpresas', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.verSucursalesEmpresa);
+api.put('/editarSucursales/:idSucursal', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.editarSucursal);
+api.delete('/eliminarSucursal/:idSucursal', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.eliminarSucursal);
+api.get('/verSucursales', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.verSucursalesEmpresa);
 
 module.exports = api

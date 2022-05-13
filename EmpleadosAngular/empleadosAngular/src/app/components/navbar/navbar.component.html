@@ -13,75 +13,32 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link navbar__options">
-          Empresas
-        </a>
+      <a class="navbar-item navbar__options has-text-success-light" routerLink="/eliminarEmpresa">
+        Empresas
+      </a>
 
-        <div class="navbar-dropdown">
+      <a class="navbar-item has-text-success-light	navbar__options" routerLink="/agregarSucursales">
+        Sucursales
+      </a>
 
-         
-          <a class="navbar-item" routerLink="/eliminarEmpresa">
-            Empresas
-          </a>
-          
-         
-
-
-        </div>
-
-      </div>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link navbar__options">
-          Sucursales
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item" routerLink="agregarSucursales">
-            Sucursales
-          </a>
-         
-        </div>
-
-        
-
-      </div>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link navbar__options">
-          Productos
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item" routerLink="productos">
-            Producto
-          </a>
-        </div>
-
-        
-
-      </div>
-
+      <a class="navbar-item has-text-success-light navbar__options" routerLink="">
+        Productos
+      </a>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-light" routerLink="/login">
-            Login
+          <a class="button is-primary">
+            <strong>Registrarse</strong>
           </a>
-         
+          <a class="button is-light">
+            Iniciar sesión
+          </a>
         </div>
       </div>
     </div>
-    
-        <div class="buttons">
-          <a class="button is-light" routerLink="/agregarEmpresa">
-            Registrar Empresa
-          </a>
-        </div>
-      </div>
-  
-  
+  </div>
 </nav>
+
+<!-- <-->

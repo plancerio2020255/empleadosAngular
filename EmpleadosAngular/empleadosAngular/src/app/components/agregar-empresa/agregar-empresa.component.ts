@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresas } from 'src/app/models/empresas.model';
+import { Empresas } from 'src/app/models/empresa.model';
 import { EmpresasService } from 'src/app/services/empresas.service';
 import Swal from 'sweetalert2';
 
@@ -104,7 +104,7 @@ getEmpresasId(idEmpresa){
 
       },
       (error) => {
-        console.log(<any>error);  
+        console.log(<any>error);
         Swal.fire({
           icon: 'error',
           title: error.error.mensaje,

@@ -10,8 +10,7 @@ import { EmpresasService } from 'src/app/services/empresa.service';
 export class NavbarComponent implements OnInit {
   public identidad;
 
-  constructor(public empresaService: EmpresasService) {
-    this.identidad = this.empresaService.getIdentidad()
+  constructor() {
   }
 
   ngOnInit(): void {

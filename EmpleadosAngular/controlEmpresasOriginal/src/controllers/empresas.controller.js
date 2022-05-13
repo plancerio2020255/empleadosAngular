@@ -64,7 +64,7 @@ function eliminarSucursal(req,res) {
 
 function verSucursalesEmpresa(req,res) {
     Sucursales.find({idEmpresa: req.user.sub}, (err, sucursalesEncontradas) => {
-        return res.status(200).send({ Sucursales: sucursalesEncontradas });
+        return res.status(200).send({ sucursales: sucursalesEncontradas });
       });
 }
 
@@ -95,11 +95,42 @@ function agregarProducto(req,res) {
 }
 
 function editarProducto(req,res) {
+    var parametros = req.body;
+    var idProducto = req.params.idProducto;
 
+    Productos.findOne({_idP: idProducto, _idEmpre: req.user.sub}, (err, productoEncontrado) =>{
+        if(err) return res.status(500).send({mensaje: 'Error en la peticion'})
+        if(!productoEncontrado){
+        return res.status(500).send({mensaje: 'Solo puede editar productos de su empresa'});
+        } else {
+            Productos.findByIdAndUpdate(idProducto, parametros, {new:true}, (err, productoEditado)=>{
+                if(err) return res.status(500).send({mensaje: 'Error en la peticion'})
+                if(!productoEditado) return res.status(500).send({mensaje: 'Error al editar esta sucursal'});
+                return res.status(200).send({producto: productoEditado});
+            })
+        }
+    })
 }
 
 function eliminarProducto(req,res) {
+    const idProducto = req.params.idProducto;
 
+    Productos.findOne({idP: idProducto, idOwner: req.user.sub}, (err, productoEncontrado) =>{
+        if(!productoEncontrado) {
+            return res.status(500).send({mensaje: 'Solo puedes eliminar productos de tu propiedad'});
+        }
+        Productos.findByIdAndDelete(idProducto, (err, productoEliminado) => {
+            if(err) return res.status(500).send({mensaje: 'Error en la peticion'});
+            if(!productoEliminado) return res.status(500).send({mensaje:'Error al eliminar sucursal'});
+            return res.status(200).send({mensaje:'Eliminaste el siguiente producto: ', producto: productoEliminado});
+        });
+    });
+}
+
+function verProductos(req,res){
+    Productos.find({idEmpresa: req.user.sub}, (err, productosEncontrados) => {
+        return res.status(200).send({ productos: productosEncontrados });
+      });
 }
 
 function enviarProductoSucursal(req,res) {
@@ -112,6 +143,9 @@ module.exports = {
     editarSucursal,
     eliminarSucursal,
     verSucursalesEmpresa,
-
     agregarProducto,
+    editarProducto,
+    eliminarProducto,
+    verProductos,
+    enviarProductoSucursal
 }

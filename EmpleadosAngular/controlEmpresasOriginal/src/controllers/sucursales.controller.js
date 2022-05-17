@@ -46,7 +46,6 @@ function EditarSucursales(req, res) {
     })
 }
 
-
 function eliminarSucursales(req, res) {
     var idSucursal = req.params.idSucursal; //Obtener el valor de la variable en ruta
 
@@ -61,8 +60,6 @@ function eliminarSucursales(req, res) {
         return res.status(200).send({ sucursal: sucursalEliminado });
     })
 }
-
-
 
 function BusquedaSucursalPorNombre(req, res) {
     var nomSucursal = req.params.nombreSucursal;

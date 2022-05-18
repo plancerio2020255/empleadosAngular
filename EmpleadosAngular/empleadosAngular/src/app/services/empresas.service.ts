@@ -61,7 +61,7 @@ export class EmpresasService {
   registrarEmpresa(modeloEmpresa: Empresas) : Observable<any> {
     let parametros = JSON.stringify(modeloEmpresa);
 
-    return this.http.post(this.url + '/registrarEmpresa', parametros, {headers: this.headersVariable});
+    return this.http.post(this.url + '/registrar', parametros, {headers: this.headersVariable});
   }
 
 

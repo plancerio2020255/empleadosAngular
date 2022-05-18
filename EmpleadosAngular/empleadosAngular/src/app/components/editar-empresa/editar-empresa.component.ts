@@ -38,24 +38,9 @@ export class EditarEmpresaComponent implements OnInit {
 
   }
 
-  eliminarEmpresas(id){
-    this.empresasService.eliminarEmpresas(id,this.token).subscribe(
-      (response)=>{
-        console.log(response);
-        this.getEmpresas();
-      },
-      (error)=>{
-        console.log(<any>error);
-        Swal.fire({
 
-          icon: 'error',
-          title: error.error.mensaje,
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
-    )
-  }
+
+
 
   getEmpresasId(idEmpresa){
     this.empresasService.obtenerEmpresaId(idEmpresa,this.token).subscribe(

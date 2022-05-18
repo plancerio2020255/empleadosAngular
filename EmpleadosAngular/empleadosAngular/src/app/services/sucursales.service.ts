@@ -9,6 +9,10 @@ import { Sucursales } from '../models/sucursales.model'
 export class SucursalesService {
   public url : String = 'http://localhost:3000/api';
   public headersVariable = new HttpHeaders().set('Content-Type', 'application/json');
+  public headersToken = new HttpHeaders({
+    'Content Type': 'application/json',
+    'Authorization': this.getToken()
+  })
   public token;
   public identidad;
 
@@ -19,7 +23,7 @@ export class SucursalesService {
     let headersToken = this.headersVariable.set('Authorization', token )
     let parametros = JSON.stringify(modeloSucursales);
 
-    return this.http.post(this.url + '/', parametros, { headers: headersToken })
+    return this.http.post(this.url + '/agregarSucursales', parametros, { headers: headersToken })
   }
 
   editarSucursales(modeloSucursal:Sucursales, token): Observable<any> {
@@ -40,5 +44,26 @@ export class SucursalesService {
     let headersToken = this.headersVariable.set('Authorization', token )
     return this.http.get(this.url + '/', { headers: headersToken});
   }
+
+  VerSucursales(token) : Observable<any> {
+
+    let headersToken = this.headersVariable.set('Authorization', token )
+    return this.http.get(this.url + '/verSucursales', { headers: headersToken});
+  }
+
+  getToken(){
+    var token2 = localStorage.getItem("token");
+    if(token2 != undefined){
+      this.token = token2
+    } else {
+      this.token = '';
+    }
+
+    return this.token;
+  }
+
+
+
+
 
 }

@@ -9,7 +9,7 @@ api.post('/login', controladorAdmin.Login)
 api.post('/registrarAdmin',[md_autenticacion.Auth, md_role.verAdmin],controladorAdmin.RegistrarAdmin)
 api.post('/registrar', controladorAdmin.agregarEmpresa)
 api.put('/editarEmpresa', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.editarEmpresa)
-api.delete('/eliminarEmpresa/:idUsuario', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.eliminarEmpresa)
+api.delete('/eliminarEmpresa/:idUsuario', [md_autenticacion.Auth], controladorAdmin.eliminarEmpresa)
 api.get('/verEmpresa', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.verEmpresa)
 //Municipios
 api.post('/crearMunicipio', [md_autenticacion.Auth, md_role.verAdmin], controladorAdmin.crearMunicipio)

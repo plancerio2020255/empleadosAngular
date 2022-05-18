@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Empresas } from '../models/empresa.model';
-
+import { EliminarEmpresaComponent } from '../components/eliminar-empresa/eliminar-empresa.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -50,5 +50,11 @@ export class EmpresasService {
   agregarEmpresa(modeloEmpresa: Empresas) : Observable<any> {
     let parametros = JSON.stringify(modeloEmpresa);
     return this._http.post(this.url + '/registrar', parametros, {headers: this.headersVariable})
+  }
+
+  eliminarEmpresas( idEmpresas, token ): Observable<any> {
+
+    let headersToken = this.headersVariable.set('Authorization', token )
+    return this._http.delete(this.url + '/eliminarEmpresa/'+ idEmpresas, { headers: headersToken})
   }
 }

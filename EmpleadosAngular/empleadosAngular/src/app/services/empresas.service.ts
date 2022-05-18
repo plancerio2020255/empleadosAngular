@@ -11,6 +11,10 @@ export class EmpresasService {
   public identidad;
   public url: String = 'http://localhost:3000/api';
   public headersVariable = new HttpHeaders().set('Content-Type', 'application/json');
+  public headersToken = new HttpHeaders({
+    'Content Type': 'application/json',
+    'Authorization': this.getToken()
+  })
   constructor(public http: HttpClient) { }
 
 
@@ -37,10 +41,7 @@ export class EmpresasService {
     return this.token;
   }
 
-  clearToken(){
-    localStorage.clear();
 
-  }
 
   getIdentidad() {
     var identidad2 = JSON.parse(localStorage.getItem('identidad'));
@@ -93,7 +94,7 @@ export class EmpresasService {
     let parametros = JSON.stringify(modeloEmpresa);
     let headersToken = this.headersVariable.set('Authorization', token)
 
-    return this.http.put(this.url + ''+ modeloEmpresa._id, parametros, { headers: headersToken})
+    return this.http.put(this.url + '/editarEmpresa'+ modeloEmpresa._id, parametros, { headers: headersToken})
   }
 
 }

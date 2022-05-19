@@ -7,7 +7,7 @@ const api = express.Router();
 api.post('/agregarSucursales',  controladorEmpresas.agregarSucursal);
 api.put('/editarSucursales/:idSucursal', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.editarSucursal);
 api.delete('/eliminarSucursal/:idSucursal', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.eliminarSucursal);
-api.get('/verSucursales', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.verSucursalesEmpresa);
+api.get('/verSucursales', [md_autenticacion.Auth],controladorEmpresas.verSucursalesEmpresa);
 api.post('/agregarProducto', [md_autenticacion.Auth, md_rol.verEmpresa] ,controladorEmpresas.agregarProducto);
 api.put('/editarProducto', [md_autenticacion.Auth, md_rol.verEmpresa], controladorEmpresas.editarProducto);
 api.delete('/eliminarProducto', [md_autenticacion.Auth, md_rol.verEmpresa] ,controladorEmpresas.eliminarProducto);

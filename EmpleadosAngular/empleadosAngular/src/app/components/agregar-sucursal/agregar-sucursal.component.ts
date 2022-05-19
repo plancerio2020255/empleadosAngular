@@ -33,10 +33,8 @@ export class AgregarSucursalComponent implements OnInit {
         0,
         '',
         ''
-      );
-    this.sucursalesModelGetId = new Sucursales('', '', '', 0, '', '');
-    this.empresasModelGetId = new Empresas('','', '', '', '', '', '', );
-    this.token = this.empresaService.getToken()
+      )
+      this.token = this.sucursalService.getToken()
   }
 
   ngOnInit(): void {

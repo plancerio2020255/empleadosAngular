@@ -1,33 +1,42 @@
 const Sucursales = require('../models/sucursales.model');
 const Productos = require('../models/productos.model');
 
+
+
 function agregarSucursal(req, res) {
-    var parametro = req.body;
-    var sucursalesModel = new Sucursales();
+    const parametros = req.body;
+    const modeloSucursales = new Sucursales();
   
-    if (
-      parametro.nombre &&
-      parametro.direccion
-    ) {
-      sucursalesModel.nombreSucursal = parametro.nombre;
-      sucursalesModel.direccionSucursal = parametro.direccion;
-      sucursalesModel.idEmpresa = req.user.sub
+    if (parametros.nombreSucursal &&  parametros.direccionSucursal) {
+      modeloSucursales.nombre = parametros.nombreSucursal;
+      modeloSucursales.direccion = parametros.direccionSucursal;
+      modeloSucursales.idEmpresa = parametros.sub;
   
-      Sucursales.find({ nombreSucursal: parametro.nombre, idEmpresa: req.user.sub}, (err, sucursalEncontrada) => {
-        if (sucursalEncontrada.length == 0) {
-            sucursalesModel.save((err, sucursalGuardada) => {
-                if(err) return res.status(500).send({mensaje: "Error en la peticion"});
-                if(!sucursalGuardada) return res.status(500).send({mensaje: 'Error al agregar sucursal'});
-                return res.status(200).send({sucursal: sucursalGuardada});
-            })
-        } else {
-            return res.status(500).send({mensaje: 'Ya existe esta sucursal'})
-        } 
-      });
+      Sucursales.find(
+        { nombre: parametros.nombreSucursal, idEmpresa: req.user.sub },
+        (err, sucursalEmcontrada) => {
+          if (sucursalEmcontrada.length == 0) {
+            modeloSucursales.save((err, SurcursalGuardada) => {
+              if (err)
+                return res.status(500).send({ mensaje: "Error en la peticion" });
+              if (!SurcursalGuardada)
+                return res
+                  .status(500)
+                  .send({ mensaje: "Error al agregar Surcusal" });
+  
+              return res.status(200).send({ Surcusal: SurcursalGuardada });
+            });
+          } else {
+            return res
+              .status(500)
+              .send({ Surcusal: "La Sucursal ya a sido creada" });
+          }
+        }
+      );
     } else {
-        return res.status(500).send({mensaje: 'Debe enviar los parametros obligatorios'});
-    } 
-}
+      return res.status(500).send({ Surcusal: "enviar parametros obligatorios" });
+    }
+  }
 
 function editarSucursal(req, res) {
     var parametros = req.body;

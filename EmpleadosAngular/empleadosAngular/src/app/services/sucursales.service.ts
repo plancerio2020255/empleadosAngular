@@ -48,7 +48,7 @@ export class SucursalesService {
   VerSucursales(token) : Observable<any> {
 
     let headersToken = this.headersVariable.set('Authorization', token )
-    return this.http.get(this.url + '/', { headers: headersToken});
+    return this.http.get(this.url + '/verSucursales', { headers: headersToken});
   }
 
   getToken(){

@@ -49,7 +49,7 @@ getSucursales() {
     (response) => {
       this.load = true;
       this.sucursalesModelGet = response.Sucursales;
-      console.log(this.sucursalesModelGet)
+      console.log(this.sucursalesModelPost)
     },
     (error) => {
       console.log(error);

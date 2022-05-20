@@ -1,0 +1,321 @@
+<body>
+    <div class="container">
+  
+      <!-- Button activador modal agregar Empresas-->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarEmpresaModal">
+        Agregar Empresas
+      </button>
+  
+      <div class="cartas">
+        <div class="row">
+          <div class="col-12 col-md-4" *ngFor="let empre of empresasModelGet">
+            <div class="card text-dark bg-light border-info  mb-3" style="max-width: 18rem;">
+              <div class="card-header bg-transparent border-info "> {{ empre.nombre }}</div>
+              <div class="card-body text-dark">
+                <h5 class="card-title">La direccion que se encuentra es: {{ empre.direccion }} </h5>
+                <p class="card-text">Una pequeña descripcion: {{ empre.descripcion }}</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  (click)="getProductos()">
+                  Ver empresa
+                </button>
+              </div>
+              <div class="card-footer bg-transparent border-info "> {{ empre.nombre }} S,A. ©</div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+      <!-- Modal Agregar Empresas-->
+      <div class="cajaa">
+        <div class="modal fade" id="agregarEmpresaModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+  
+          <div class="modal-dialog">
+  
+            <div class="modal-content">
+  
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Empresa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+  
+              <div class="modal-body">
+  
+                <form>
+  
+                  <div class="mg-3">
+                    <label for="imputNombre" class="form-label"> Nombre de la Empresa</label>
+                    <input type="text" id="imputNombre" class="form-control" name="nombre" #nombre="ngModel"
+                      [(ngModel)]="empresasModelPost.nombre">
+                  </div>
+                  <div class="mg-3">
+                    <label for="imputDireccion" class="form-label"> Direccion de la Empresa</label>
+                    <input type="text" id="imputDireccion" class="form-control" name="direccion" #direccion="ngModel"
+                      [(ngModel)]="empresasModelPost.direccion">
+                  </div>
+                  <div class="mg-3">
+                    <label for="imputDescripcion" class="form-label"> Descripcion de la Empresa</label>
+                    <input type="text" id="imputDescripcion" class="form-control" name="descripcion"
+                      #descripcion="ngModel" [(ngModel)]="empresasModelPost.descripcion">
+                  </div>
+  
+                </form>
+  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="postEmpresa()">Agregar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+  
+  
+  
+  
+      <!-- Button trigger modal -->
+  
+  
+      <!-- Modal -->
+      <div class="modal fade col-12" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Informacion de la empresa</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+  
+  
+  
+              <div class="card text-center" *ngFor="let empre of empresaProdModelGet">
+                <div class="card-header">
+                  Productos
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ empre.nombreProducto }}</h5>
+                  <p class="card-text">El precio es de: {{empre.precioProducto}}</p>
+                  <p class="card-text">Tiene un stock de: {{empre.stock}}</p>
+  
+                  <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-danger" (click)="deleteProducto(empre._id)">Eliminar</button>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#enviarProducto" (click)="postAgregarProd(empre._id); getSucursales()">Enviar productos</button>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editarProductoModal" (click)="getProductoId(empre._id)">Editar</button>
+                  </div>
+                </div>
+                <div class="card-footer text-muted">
+  
+                </div>
+              </div>
+  
+  
+  
+            </div>
+            <div class="modal-footer">
+  
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProductoModal"
+                >
+                Agregar producto
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+      <div class="cajaa">
+        <div class="modal fade" id="agregarProductoModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+  
+          <div class="modal-dialog">
+  
+            <div class="modal-content">
+  
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+  
+              <div class="modal-body">
+  
+                <form>
+  
+                  <div class="mg-3">
+                    <label for="imputNombre" class="form-label"> Nombre del producto</label>
+                    <input type="text" id="imputNombreNombreProducto" class="form-control" name="nombreProducto" #nombreProducto="ngModel"
+                      [(ngModel)]="productosModelPost.nombreProducto">
+                  </div>
+                  <div class="mg-3">
+                    <label for="imputDireccion" class="form-label"> Precio del producto</label>
+                    <input type="text" id="imputPrecioProducto" class="form-control" name="precioProducto" #precioProducto="ngModel"
+                      [(ngModel)]="productosModelPost.precioProducto">
+                  </div>
+                  <div class="mg-3">
+                    <label for="imputDescripcion" class="form-label"> Stock</label>
+                    <input type="text" id="imputStock" class="form-control" name="stock"
+                      #stock="ngModel" [(ngModel)]="productosModelPost.stock">
+                  </div>
+  
+                </form>
+  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="postProductos()" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+      <div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+  
+      <div class="modal-dialog">
+  
+        <div class="modal-content">
+  
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">editar producto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+  
+          <div class="modal-body">
+  
+            <form>
+  
+              <div class="mg-3">
+                <label for="imputNombre" class="form-label"> Nombre del producto</label>
+                <input type="text" id="imputNombreProducto" class="form-control" name="nombreProducto"#nombreProducto="ngModel"
+                [(ngModel)]="productosModelGetId.nombreProducto"
+               >
+              </div>
+              <div class="mg-3">
+                <label for="imputDireccion" class="form-label"> Precio del producto</label>
+                <input type="text" id="imputPrecioProducto" class="form-control" name="precioProducto" #precioProducto="ngModel"
+                  [(ngModel)]="productosModelGetId.precioProducto">
+              </div>
+              <div class="mg-3">
+                <label for="imputDescripcion" class="form-label"> Stock</label>
+                <input type="text" id="imputStock" class="form-control" name="stock"
+                  #stock="ngModel" [(ngModel)]="productosModelGetId.stock">
+              </div>
+  
+            </form>
+  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="putProductos()" data-bs-toggle="modal" data-bs-target="#exampleModal" >Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+  
+    <div class="modal fade col-12" id="enviarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Informacion de la empresa</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+  
+  
+  
+            <div class="card text-center" *ngFor="let empre of sucursalModelGet">
+              <div class="card-header">
+                Productos
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ empre.nombre}}</h5>
+                <p class="card-text">Direccion: {{empre.direccion}}</p>
+  
+  
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#agregarProductoSuc" (click)="getIdSucursal(empre._id)">Enviar productos</button>
+                </div>
+              </div>
+              <div class="card-footer text-muted">
+  
+              </div>
+            </div>
+  
+  
+  
+          </div>
+          <div class="modal-footer">
+  
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProductoSuc"
+              >
+              Agregar producto
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+    <div class="cajaa">
+      <div class="modal fade" id="agregarProductoSuc" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+  
+        <div class="modal-dialog">
+  
+          <div class="modal-content">
+  
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar producto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+  
+            <div class="modal-body">
+  
+              <form>
+  
+                <div class="mg-3">
+                  <label for="imputNombre" class="form-label"> Nombre del producto</label>
+                  <input type="text" id="imputNombreNombreProducto" disabled="true" class="form-control" name="nombre"#nombre="ngModel"
+                  [(ngModel)]="productosModelGetId.nombreProducto"
+                  >
+                </div>
+                <div class="mg-3">
+                  <label for="imputDireccion" class="form-label"> Precio del producto</label>
+                  <input type="text" id="imputPrecioProducto" disabled="true" class="form-control"name="precio" #precio="ngModel"
+                  [(ngModel)]="productosModelGetId.precioProducto">
+                </div>
+                <div class="mg-3">
+                  <label for="imputDescripcion" class="form-label"> Stock</label>
+                  <input type="text" id="imputStock" class="form-control" name="stock"#stock="ngModel"
+                  [(ngModel)]="productosModelGetId.stock" >
+                </div>
+  
+              </form>
+  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" (click)="agregarProd()" data-bs-dismiss="modal">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+    </div>
+  
+  
+  
+  </body>

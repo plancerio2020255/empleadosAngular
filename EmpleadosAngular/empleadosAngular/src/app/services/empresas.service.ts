@@ -1,100 +1,71 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Empresas } from '../models/empresa.model';
+import { Productos } from '../models/productos.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpresasService {
-  public token;
-  public identidad;
-  public url: String = 'http://localhost:3000/api';
-  public headersVariable = new HttpHeaders().set('Content-Type', 'application/json');
-  public headersToken = new HttpHeaders({
-    'Content Type': 'application/json',
-    'Authorization': this.getToken()
-  })
-  constructor(public http: HttpClient) { }
+  public url : String = 'http://localhost:3000/api'
+  constructor(public _http: HttpClient) { }
+  public headersVariable = new HttpHeaders().set('Content-Type', 'application/json')
 
+  obtenerEmpresas(token): Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization', token )
 
-  login(empresa, obtenerToken = null): Observable<any> {
-
-    if(obtenerToken != null){
-      empresa.obtenerToken = obtenerToken;
-    }
-
-    let params = JSON.stringify(empresa);
-
-    return this.http.post(this.url + '/login', params, { headers: this.headersVariable });
+    return this._http.get(this.url + '/obtenerEmpresas', {headers: headersToken });
   }
 
+  agregarEmpresas(modeloEmpresa: Empresas, token): Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', token);
 
-  getToken(){
-    var token2 = localStorage.getItem("token");
-    if(token2 != undefined){
-      this.token = token2
-    } else {
-      this.token = '';
-    }
-
-    return this.token;
-  }
-
-
-
-  getIdentidad() {
-    var identidad2 = JSON.parse(localStorage.getItem('identidad'));
-    if(identidad2 != undefined){
-      this.identidad = identidad2;
-    }else{
-      this.identidad = null;
-    }
-
-    return this.identidad;
-  }
-
-   obtenerEmpresas(token) : Observable<any> {
-    let headersToken = this.headersVariable.set('Authorization', token)
-    return this.http.get(this.url + '/verEmpresa', {headers: headersToken})
-  }
-
-  registrarEmpresa(modeloEmpresa: Empresas) : Observable<any> {
     let parametros = JSON.stringify(modeloEmpresa);
 
-    return this.http.post(this.url + '/registrar', parametros, {headers: this.headersVariable});
+    return this._http.post(this.url + '/agregarEmpresa', parametros, {headers: headersToken })
   }
+  obtenerproductos(token): Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', token )
 
+    return this._http.get(this.url + '/obtenerProductosEmpresa', {headers: headersToken })
 
-  agregarEmpresas(modeloEmpresa: Empresas) {
-    let parametros = JSON.stringify(modeloEmpresa);
-
-    return this.http.post(this.url + '/agregarEmpresa', parametros, { headers: this.headersVariable})
   }
-
-  obtenerEmpresaId(idEmpresa, token):Observable<any> {
-    let headersToken = this.headersVariable.set('Authorization', token );
-    return this.http.get(this.url + '/EmpresaId/'+ idEmpresa,{ headers: headersToken})
-  }
-
-
-  VerEmpresas(token) : Observable<any> {
+  agregarProductos(modeloProducto: Productos,token): Observable<any>{
+    let parametros = JSON.stringify(modeloProducto);
 
     let headersToken = this.headersVariable.set('Authorization', token )
-    return this.http.get(this.url + '/verEmpresa', { headers: headersToken});
+
+    return this._http.put(this.url + '/agregarProductosEmpresa', parametros,{headers: headersToken })
+
   }
-
-  eliminarEmpresas( idEmpresas, token ): Observable<any> {
-
+  eliminarProductos(idProducto, token){
     let headersToken = this.headersVariable.set('Authorization', token )
-    return this.http.delete(this.url + '/eliminarEmpresa/'+ idEmpresas, { headers: headersToken})
-  }
 
-  editarEmpresa(modeloEmpresa:Empresas, token):Observable<any> {
-    let parametros = JSON.stringify(modeloEmpresa);
+    return this._http.delete(this.url + '/eliminarProductosEmpresa/' + idProducto, { headers: headersToken})
+  }
+  editarProductos(modeloProducto: Productos,token){
     let headersToken = this.headersVariable.set('Authorization', token)
 
-    return this.http.put(this.url + '/editarEmpresa'+ modeloEmpresa._id, parametros, { headers: headersToken})
+    let parametro = JSON.stringify(modeloProducto);
+
+    return this._http.put(this.url + '/editarProductosEmpresa/' + modeloProducto._id, parametro, {headers: headersToken} )
+
+
+  }
+  obtenerProductosId( idProducto, token ): Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization', token )
+
+
+    return this._http.get(this.url + '/obtenerProductoEmpresa/' + idProducto, { headers: headersToken})
   }
 
+  agregarProductosSucursal(modeloProducto: Productos,token, idSucursal, idProducto): Observable<any>{
+    let parametros = JSON.stringify(modeloProducto);
+
+    let headersToken = this.headersVariable.set('Authorization', token )
+
+    return this._http.put(this.url + '/agregarProductosSucursal/'+ idSucursal + '/' + idProducto, parametros,{headers: headersToken })
+
+  }
 }

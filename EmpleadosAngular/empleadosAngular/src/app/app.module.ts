@@ -4,37 +4,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { InicioComponent } from './components/inicio/inicio.component';
-import { AgregarEmpresaComponent } from './components/agregar-empresa/agregar-empresa.component';
-import { EliminarEmpresaComponent } from './components/eliminar-empresa/eliminar-empresa.component';
-import { VerEmpresaComponent } from './components/ver-empresa/ver-empresa.component';
-import { AgregarSucursalComponent } from './components/agregar-sucursal/agregar-sucursal.component';
-import { EliminarSucursalComponent } from './components/eliminar-sucursal/eliminar-sucursal.component';
-import { EditarSucursalComponent } from './components/editar-sucursal/editar-sucursal.component';
-import { VerSucursalComponent } from './components/ver-sucursal/ver-sucursal.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { EditarEmpresaComponent } from './components/editar-empresa/editar-empresa.component';
-import { ProductoComponent } from './components/producto/producto.component';
+import { LoginComponent } from './components/login/login.component';
+import { EmpresasComponent } from './components/empresas/empresas.component';
+import { SucursalComponent } from './components/sucursal/sucursal.component';
+import { SucursalesComponent } from './components/sucursales/sucursales.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent,
-    InicioComponent,
-    AgregarEmpresaComponent,
-    EliminarEmpresaComponent,
-    VerEmpresaComponent,
-    AgregarSucursalComponent,
-    EliminarSucursalComponent,
-    EditarSucursalComponent,
-    VerSucursalComponent,
-    EditarEmpresaComponent,
-    ProductoComponent
+    EmpresasComponent,
+    SucursalComponent,
+    SucursalesComponent,
   ],
   imports: [
     BrowserModule,

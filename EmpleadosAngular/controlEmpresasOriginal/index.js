@@ -1,14 +1,15 @@
-const mongoose = require('mongoose')
-const app = require('./app')
-const adminController = require('./src/controllers/admin.controller')
+const mongoose = require('mongoose');
+const usuarioControlador = require('./src/controllers/usuario.controller');
+const app = require('./app');
 
-mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost:27017/ControlEmpresasSucursales', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-  console.log('Se ha conectado correctamente a la base de datos.')
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/ControlSucursalesEmpresas', { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+    console.log("Se encuentra conectado a la base de datos.");
 
-  adminController.crearAdmin()
+    app.listen(3000, function () {
+        console.log("Esta corriendo en el puerto 3000!")
+        usuarioControlador.crearAdmin();
 
-  app.listen(3000, function () {
-    console.log('Servidor de Express corriendo correctamente en el puerto 3000')
-  })
-}).catch(error => console.log(error))
+    })
+
+}).catch(error => console.log(error));

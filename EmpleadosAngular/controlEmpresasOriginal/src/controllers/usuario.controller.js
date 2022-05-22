@@ -7,6 +7,8 @@ const Empresa = require('../models/empresas.model')
 
 function RegistrarAd(req, res) {
 
+    
+
     let usuarioModelo = new Usuario();
 
     usuarioModelo.nombre='SuperAdmin';

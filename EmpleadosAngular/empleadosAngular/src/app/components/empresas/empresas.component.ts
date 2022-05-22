@@ -51,30 +51,25 @@ export class EmpresasComponent implements OnInit {
     this.empresaIDModel = new Empresas('', '', '', 0, '', '',[{
       nombreProducto: '',
       precioProducto: 0,
-      stock: 0
-    }],
-    '')
+      stock: 0 }],'')
+
     this.token = this._usuarioService.getToken()
     this.productosModelPost = new Productos(
       '',
       '',
       0,
-      0
-    )
+      0 )
     this.productosModelGetId = new Productos(
       '',
       '',
       0,
-      0
-    )
+      0 )
     this.producModelId = new Productos(
       '',
       '',
       0,
-      0
-    )
+      0)
   }
-
 
   tipoEmpresas = environment2.tipoEmpresas;
   departamentos = environment.departamentos;
@@ -87,11 +82,9 @@ export class EmpresasComponent implements OnInit {
     this._empresasService.obtenerEmpresas(this.token).subscribe(
       (response) => {
         this.empresasModelGet = response.Empresas;
-        console.log(response);
-      },
+        console.log(response);},
       (error) => {
         console.log(<any>error);
-
       }
     )
   }
@@ -128,9 +121,7 @@ export class EmpresasComponent implements OnInit {
     this._empresasService.obtenerEmpresaID(idEmpresa).subscribe(
       response => {
         console.log(response);
-        this.empresaIDModel = response.empresa;
-
-      }
+        this.empresaIDModel = response.empresa;}
     )
   }
 
@@ -142,7 +133,6 @@ export class EmpresasComponent implements OnInit {
         console.log(response);
           Swal.fire({
             icon: 'success',
-            title: '!OK!',
             text: 'Empresa editada correctamente'
           })
           this.getEmpresas();
@@ -151,8 +141,7 @@ export class EmpresasComponent implements OnInit {
           console.log(<any>error);
           Swal.fire({
             icon: 'warning',
-            title: '!Opppsss.....!',
-            text: 'No se ha podido editar la empresa'
+            text: 'No se edito la Empresa'
           })
         }
     )

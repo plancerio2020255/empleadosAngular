@@ -6,14 +6,14 @@ const Sucursales = require('../models/sucursales.model')
 
 
 
-function agregarSucursal(req, res) {
-    const parametros = req.body;
-    const modeloSucursal = new Sucursales();
-        modeloSucursal.nombre = parametros.nombre;
-        modeloSucursal.municipio = parametros.municipio;
-        modeloSucursal.direccion = parametros.direccion;
-        modeloSucursal.idEmpresa = req.user.sub;
-        modeloSucursal.save((err, sucursalGuardada) => {
+    function agregarSucursal(req, res) {
+         const parametros = req.body;
+            const modeloSucursal = new Sucursales();
+              modeloSucursal.nombre = parametros.nombre;
+              modeloSucursal.municipio = parametros.municipio;
+              modeloSucursal.direccion = parametros.direccion;
+              modeloSucursal.idEmpresa = req.user.sub;
+              modeloSucursal.save((err, sucursalGuardada) => {
 
             if (err) return res.status(500).send({ mensaje: 'error en la peticion' })
             if (!sucursalGuardada) return res.status(500).send({ mensaje: 'error al agregar la sucursal' })
@@ -36,7 +36,7 @@ function editarSucursal(req, res) {
             if (err) return res.status(500).send({ mensaje: 'error en la peticion 1' })
 
             if (sucursalEncontrada) {
-                Sucursales.findByIdAndUpdate(idSucursal, parametros, { new: true }, (err, sucursalEditada) => {
+                    Sucursales.findByIdAndUpdate(idSucursal, parametros, { new: true }, (err, sucursalEditada) => {
                     if (err) return res.status(500).send({ mensaje: 'error en la peticion 2' })
                     if (!sucursalEditada) return res.status(500).send({ mensaje: 'error al editar la sucursal' })
                     return res.status(200).send({ sucursal: sucursalEditada })
@@ -57,7 +57,7 @@ function eliminarSucursal(req, res) {
     Sucursales.findOne({ idEmpresa: idEmpresaa }, (err, sucursalEncontrada) => {
         if (sucursalEncontrada) {
             if(sucursalEncontrada.idEmpresa==idEmpresaa){
-                Sucursales.findByIdAndDelete({ _id: idSucursal }, (err, sucursalEliminada) => {
+                    Sucursales.findByIdAndDelete({ _id: idSucursal }, (err, sucursalEliminada) => {
                     if (err) return res.status(500).send({ mensaje: 'Hubo un error en la peticion' })
                     if (!sucursalEliminada) return res.status(500).send({ mensaje: 'error al editar sucursal' })
                     return res.status(200).send({ sucursal: sucursalEliminada })
@@ -75,7 +75,7 @@ function eliminarSucursal(req, res) {
 
 function obtenerSucursales(req, res) {
     const idEmpresaa = req.user.sub;
-    Sucursales.find({ idEmpresa: idEmpresaa }, (err, sucursalesEncontradas) => {
+        Sucursales.find({ idEmpresa: idEmpresaa }, (err, sucursalesEncontradas) => {
         if (err) return res.status(500).send({ mensaje: 'error en la peticion 1' })
         if (!sucursalesEncontradas) return res.status(500).send({ mensaje: 'error al encontrar las sucursales' })
         return res.status(200).send({ sucursales: sucursalesEncontradas })
@@ -85,17 +85,8 @@ function obtenerSucursales(req, res) {
 
 function obtenerProductos(req, res) {
     const idSucursal = req.params.idSucursal;
-    Sucursales.aggregate([
-        {
-            $match: { "_id": mongoose.Types.ObjectId(idSucursal) }
-        },
-        {
-            $unwind: "$productos"
-        },
-        {
-            $match: {}
-        },
-        {
+    Sucursales.aggregate([{ $match: { "_id": mongoose.Types.ObjectId(idSucursal) }},{$unwind: "$productos"},{$match: {}},
+    {
             $group: {
                 "_id": "$_id",
                 "nombre": { "$first": "$nombre" },
@@ -118,12 +109,12 @@ function obtenerProductos(req, res) {
 function ObtenerSucursalxId(req, res) {
     const idSucursal = req.params.idSucursal;
 
-    Sucursales.findById(idSucursal, (err, sucursalEncontrada) => {
+        Sucursales.findById(idSucursal, (err, sucursalEncontrada) => {
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
         if (!sucursalEncontrada) return res.status(500).send({ mensaje: 'Error al obtener el Producto' });
 
         return res.status(200).send({ sucursal: sucursalEncontrada })
-    })
+        })
 }
 
 
@@ -136,16 +127,7 @@ function generarVenta(req, res) {
 
 
     const idSucursal = req.params.idSucursal;
-    Sucursales.aggregate([
-        {
-            $match: { "_id": mongoose.Types.ObjectId(idSucursal) }
-        },
-        {
-            $unwind: "$productos"
-        },
-        {
-            $match: { "productos._id": mongoose.Types.ObjectId(idProducto) }
-        },
+    Sucursales.aggregate([{$match: { "_id": mongoose.Types.ObjectId(idSucursal) }},{$unwind: "$productos"},{$match: { "productos._id": mongoose.Types.ObjectId(idProducto) }},
         {
             $group: {
                 "_id": "$_id",
@@ -158,11 +140,9 @@ function generarVenta(req, res) {
         if (productosEncontrados[0].productos[0].stock < parametros.stock) {
             return res.status(500).send({mensaje: 'No hay suficiente stock'})
         } else {
-            Sucursales.updateOne({ "productos._id": idProducto }, { $inc: { "productos.$.stock": -parametros.stock } }, { new: true }, (err, productosActualizados) => {
-
+                Sucursales.updateOne({ "productos._id": idProducto }, { $inc: { "productos.$.stock": -parametros.stock } }, { new: true }, (err, productosActualizados) => {
                 if (err) return res.status(500).send({ mensaje: 'error en la peticion' })
                 if (!productosActualizados) return res.status(500).send({ mensaje: 'error al editar el producto' })
-
                 return res.status(200).send({ producto: productosActualizados })
 
             })
@@ -176,16 +156,7 @@ function generarVenta(req, res) {
 function obtenerProductoId(req, res){
     const idProducto = req.params.idProducto
     const idSucursal = req.params.idSucursal;
-    Sucursales.aggregate([
-        {
-            $match: { "_id": mongoose.Types.ObjectId(idSucursal) }
-        },
-        {
-            $unwind: "$productos"
-        },
-        {
-            $match: { "productos._id": mongoose.Types.ObjectId(idProducto) }
-        },
+    Sucursales.aggregate([{ $match: { "_id": mongoose.Types.ObjectId(idSucursal) }},{$unwind: "$productos"  }, {     $match: { "productos._id": mongoose.Types.ObjectId(idProducto) }       },
         {
             $group: {
                 "_id": "$_id",
@@ -194,9 +165,7 @@ function obtenerProductoId(req, res){
             }
         }
     ]).exec((err, productosEncontrados) => {
-
         return res.status(200).send({productos: productosEncontrados[0].productos[0]})
-
     })
 }
 

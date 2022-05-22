@@ -27,7 +27,6 @@
 </div>
 </div>
 
-
 <div class="modal fade" id="agregarEmpresaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -45,7 +44,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="Dire" class="form-label">Dirección</label>
+            <label for="Dire" class="form-label">Municipio</label>
             <select class="form-select" aria-label="multiple select example" id="Dire" name="Dire" #Dire="ngModel" [(ngModel)]="empresasModelPost.direccion">
               <option *ngFor="let departamento of departamentos" [value]="departamento.codigo">{{departamento.nombre}}</option>
             </select>

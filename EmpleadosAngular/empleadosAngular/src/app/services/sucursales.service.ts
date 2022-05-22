@@ -1,69 +1,86 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Sucursales } from '../models/sucursales.model'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Sucursales } from '../models/sucursales.model';
+import { Productos } from '../models/productos.model';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SucursalesService {
-  public url : String = 'http://localhost:3000/api';
+  public url : string = 'http://localhost:3000/api'
   public headersVariable = new HttpHeaders().set('Content-Type', 'application/json');
-  public headersToken = new HttpHeaders({
-    'Content Type': 'application/json',
-    'Authorization': this.getToken()
-  })
   public token;
-  public identidad;
 
-  constructor(public http: HttpClient) { }
+  constructor(public _http: HttpClient) { }
+
+
 
   agregarSucursales(modeloSucursales: Sucursales, token): Observable<any> {
-
-    let headersToken = this.headersVariable.set('Authorization', token )
+    let headersToken = this.headersVariable.set('Authorization', token);
     let parametros = JSON.stringify(modeloSucursales);
-
-    return this.http.post(this.url + '/agregarSucursales', parametros, { headers: headersToken })
+    return this._http.post(this.url + '/agregarSucursal', parametros, { headers: headersToken})
   }
 
-  editarSucursales(modeloSucursal:Sucursales, token): Observable<any> {
-    let parametros = JSON.stringify(modeloSucursal);
+
+
+
+  obtenerSucursales(token): Observable<any> {
     let headersToken = this.headersVariable.set('Authorization', token)
-
-    return this.http.put(this.url + '/'+modeloSucursal._id, parametros, { headers: headersToken })
-  }
-
-  eliminarSucursales( idSucursales, token ): Observable<any> {
-
-    let headersToken = this.headersVariable.set('Authorization', token )
-    return this.http.delete(this.url + '/'+ idSucursales, { headers: headersToken})
-  }
-
-  obtenerSucursales(token) : Observable<any> {
-
-    let headersToken = this.headersVariable.set('Authorization', token )
-    return this.http.get(this.url + '/VerSucursales', { headers: headersToken});
-  }
-
-  VerSucursales(token) : Observable<any> {
-
-    let headersToken = this.headersVariable.set('Authorization', token )
-    return this.http.get(this.url + '/verSucursales', { headers: headersToken});
-  }
-
-  getToken(){
-    var token2 = localStorage.getItem("token");
-    if(token2 != undefined){
-      this.token = token2
-    } else {
-      this.token = '';
-    }
-
-    return this.token;
+    return this._http.get(this.url + '/obtenerSucursales', {headers: headersToken})
   }
 
 
 
 
+  obtenerSucursalById(idSucursal, token): Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization', token)
+    return this._http.get(this.url + 'obtenerSucursal/' + idSucursal, {headers: headersToken})
+  }
+
+
+
+
+  editarSucursal(modeloSucursales: Sucursales, token): Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization', token)
+    let parametros = JSON.stringify(modeloSucursales)
+    return this._http.put(this.url + '/editarSucursal/' + modeloSucursales._id, parametros, {headers: headersToken})
+  }
+
+
+
+
+  eliminarSucursal(idSucursal, token){
+  let headersToken = this.headersVariable.set('Authorization', token)
+  return this._http.delete(this.url + '/eliminarSucursales/' + idSucursal, {headers: headersToken})
+  }
+
+
+
+
+
+  /* -----------------PRODUCTOS--------------- */
+
+  obtenerProductos(idSucursal, token): Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization', token)
+    return this._http.get(this.url + '/obtenerProductos' + idSucursal, {headers: headersToken})
+  }
+
+
+
+
+  obtenerProductosById(idSucursal, token, idProducto): Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', token)
+    return this._http.get(this.url + '/obtenerProductosS' + idProducto + '/' + idSucursal, {headers: headersToken})
+  }
+
+
+
+
+  venderProducto(modeloProducto: Productos, idSucursal, token): Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization', token)
+    let parametros = JSON.stringify(modeloProducto)
+    return this._http.put(this.url + '/generarVenta/' +  modeloProducto._id + '/' + idSucursal, parametros, { headers: headersToken})
+  }
 
 }

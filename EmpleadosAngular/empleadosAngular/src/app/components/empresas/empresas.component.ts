@@ -1,38 +1,60 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresas } from 'src/app/models/empresa.model';
-import { EmpresasService } from 'src/app/services/empresas.service';
+import { Empresas } from 'src/app/models/empresas.model';
+import { EmpresasService } from 'src/app/services/empresas.services.service';
+import { SucursalesService } from 'src/app/services/sucursales.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { environment, environment2 } from 'src/environments/environment';
 import { Productos } from 'src/app/models/productos.model';
 import { Sucursales } from 'src/app/models/sucursales.model';
-import { SucursalesService } from 'src/app/services/sucursales.service';
+import Swal from 'sweetalert2';
 
-import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-empresas',
   templateUrl: './empresas.component.html',
-  styleUrls: ['./empresas.component.sass'],
-  providers: [EmpresasService]
+  styleUrls: ['./empresas.component.scss'],
+  providers: [EmpresasService, UsuarioService]
+
 })
 export class EmpresasComponent implements OnInit {
 
   public empresasModelGet: Empresas;
   public empresasModelPost: Empresas;
-  public token;
+  public empresaIDModel: Empresas;
   public empresaProdModelGet: Empresas;
   public productosModelPost: Productos;
   public productosModelGetId: Productos;
   public producModelId: Productos;
   public sucursalModelGet: Sucursales;
   public SucursalId: String;
-  stockk="Iniciar Sesion";
-  constructor(private _empresasService: EmpresasService,
-    private _router: Router,
+  public token;
+
+  constructor(
+    private _empresasService: EmpresasService,
     private _usuarioService: UsuarioService,
-    private _sucursalesService: SucursalesService
+    private _sucursaleServices: SucursalesService,
     ) {
-    this.empresasModelPost = new Empresas('','','','',[{nombreProducto: '',precioProducto: 0,stock: 0}])
-    
-    this.token = this._usuarioService.getToken();
+    this.empresasModelPost = new Empresas(
+      '',
+      '',
+      '',
+      0,
+      '',
+      '',
+      [{
+        nombreProducto: '',
+        precioProducto: 0,
+        stock: 0
+      }],
+      ''
+    );
+    this.empresaIDModel = new Empresas('', '', '', 0, '', '',[{
+      nombreProducto: '',
+      precioProducto: 0,
+      stock: 0
+    }],
+    '')
+    this.token = this._usuarioService.getToken()
     this.productosModelPost = new Productos(
       '',
       '',
@@ -51,124 +73,20 @@ export class EmpresasComponent implements OnInit {
       0,
       0
     )
-
-
   }
+
+
+  tipoEmpresas = environment2.tipoEmpresas;
+  departamentos = environment.departamentos;
 
   ngOnInit(): void {
-    this.getEmpresa();
+    this.getEmpresas();
   }
 
-  getEmpresa() {
+  getEmpresas(){
     this._empresasService.obtenerEmpresas(this.token).subscribe(
       (response) => {
-        console.log(response.empresa);
-        this.empresasModelGet = response.empresa;
-      },
-      (err) => {
-        console.log(<any>err)
-      }
-    )
-  }
-
-  postEmpresa() {
-    this._empresasService.agregarEmpresas(this.empresasModelPost, this.token).subscribe(
-      (response) => {
-        console.log(response);
-        this.getEmpresa();
-        this.empresasModelPost.nombre = "";
-        this.empresasModelPost.direccion = "";
-        this.empresasModelPost.descripcion = "";
-      },
-      (err) => {
-        console.log(<any>err)
-      }
-    )
-  }
-  getProductos() {
-    this._empresasService.obtenerproductos(this.token).subscribe(
-
-      (response) => {
-        console.log(response.productos);
-        this.empresaProdModelGet = response.productos
-
-      },
-      (err) => {
-        console.log('Hubo un error');
-
-      }
-
-    )
-  }
-  postProductos() {
-    this._empresasService.agregarProductos(this.productosModelPost, this.token).subscribe(
-      (response) => {
-        console.log(response);
-        this.getProductos();
-        this.productosModelPost.nombreProducto = "";
-        this.productosModelPost.precioProducto = 0;
-        this.productosModelPost.stock = 0;
-      },
-      (err) => {
-        console.log(<any>err)
-      }
-    )
-  }
-  deleteProducto(id) {
-    this._empresasService.eliminarProductos(id, this.token).subscribe(
-      (response) => {
-        console.log(response);
-        this.getProductos();
-
-      }
-    )
-  }
-  putProductos() {
-    this._empresasService.editarProductos(this.productosModelGetId, this.token).subscribe(
-
-      (response) => {
-        console.log(response);
-        this.getProductos();
-      },
-      (error) => {
-
-      }
-
-    )
-  }
-
-  getProductoId(idProducto){
-    this._empresasService.obtenerProductosId(idProducto, this.token).subscribe(
-      (response)=>{
-        console.log(response);
-        this.productosModelGetId = response.productos;
-
-      },
-      (error)=>{
-
-      }
-    )
-  }
-  postAgregarProd(idProducto){
-    this._empresasService.obtenerProductosId(idProducto, this.token).subscribe(
-      (response) => {
-        console.log(response);
-        this.productosModelGetId = response.productos;
-      //  this._router.navigate(['/empre-suc/dashboard']);
-
-      },
-      (err) => {
-        console.log('Hubo un error');
-
-      }
-
-    )
-
-  }
-  getSucursales(){
-    this._sucursalesService.obtenerSucursales(this.token).subscribe(
-      (response) => {
-        this.sucursalModelGet = response.sucursales;
+        this.empresasModelGet = response.Empresas;
         console.log(response);
       },
       (error) => {
@@ -177,30 +95,209 @@ export class EmpresasComponent implements OnInit {
       }
     )
   }
-  getIdSucursal(idSucursal, stock){
-    this.getIdSucursal = idSucursal
-    console.log(this.getIdSucursal);
 
 
-  }
-  agregarProd(){
-    console.log(this.getIdSucursal);
 
-    this._empresasService.agregarProductosSucursal(this.productosModelGetId, this.token, this.getIdSucursal, this.productosModelGetId._id).subscribe(
-
-      (response) => {
-
+  postEmpresas(){
+    this._empresasService.agregarEmpresa(this.empresasModelPost).subscribe(
+      (response)=>{
         console.log(response);
-        this.productosModelGetId.nombreProducto = "";
-        this.productosModelGetId.precioProducto = 0;
-        this.productosModelGetId.stock = 0;
+        Swal.fire({
+            icon: 'success',
+            text: 'Se agrego correctamente la empresa'
+          })
+        this.getEmpresas();
+        this.empresasModelPost.nombre = '';
+        this.empresasModelPost.direccion = '';
+        this.empresasModelPost.telefono = 0;
+        this.empresasModelPost.descripcion = '';
+        this.empresasModelPost.tipoEmpresa = '';
       },
-      (err) => {
-
-        console.log('Hubo un error');
+      (error)=>{
+        console.log(<any>error);
+        Swal.fire({
+          icon: 'warning'
+        })
 
       }
-
     )
+  }
+
+
+  obtenerEmpresasID(idEmpresa){
+    this._empresasService.obtenerEmpresaID(idEmpresa).subscribe(
+      response => {
+        console.log(response);
+        this.empresaIDModel = response.empresa;
+
+      }
+    )
+  }
+
+
+
+  editarEmpresa(){
+    this._empresasService.editarEmpresa(this.empresaIDModel).subscribe(
+      response => {
+        console.log(response);
+          Swal.fire({
+            icon: 'success',
+            title: '!OK!',
+            text: 'Empresa editada correctamente'
+          })
+          this.getEmpresas();
+      },
+        error => {
+          console.log(<any>error);
+          Swal.fire({
+            icon: 'warning',
+            title: '!Opppsss.....!',
+            text: 'No se ha podido editar la empresa'
+          })
+        }
+    )
+  }
+
+
+  deleteEmpresa(idCat) {
+    this._empresasService.eliminarEmpresa(idCat).subscribe(
+      (response)=>{
+        console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: '!OK!',
+          text: 'La empresa ' + [this.empresasModelPost.nombre] + ' se ha eliminado correctamente'
+        })
+        this.getEmpresas();
+      },
+      (error)=>{
+        console.log(<any>error);
+        Swal.fire({
+          icon: 'warning',
+          title: '!Opppsss....!',
+          text: 'No se pudo obtener las empresas de la base de datos'
+        })
+
+      }
+    )
+  }
+
+    //productos
+
+    getProductos() {
+      this._empresasService.obtenerProductos(this.token).subscribe(
+        (response) => {
+          console.log(response.productos);
+          this.empresaProdModelGet = response.productos
+        },
+        (err) => {
+          console.log('Hubo un error');
+        }
+      )
+    }
+
+    postProductos() {
+      this._empresasService.agregarProductos(this.productosModelPost, this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.getProductos();
+          this.productosModelPost.nombreProducto = "";
+          this.productosModelPost.precioProducto = 0;
+          this.productosModelPost.stock = 0;
+        },
+        (err) => {
+          console.log(<any>err)
+        }
+      )
+    }
+
+  putProductos() {
+      this._empresasService.editarProducto(this.productosModelGetId, this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.getProductos();
+        },
+        (error) => {
+        }
+      )
+    }
+
+    deleteProducto(id) {
+      this._empresasService.eliminarProducto(id, this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.getProductos();
+        }
+      )
+    }
+
+    getProductoId(idProducto){
+      this._empresasService.obtenerProductosById(idProducto, this.token).subscribe(
+        (response)=>{
+          console.log(response);
+          this.productosModelGetId = response.productos;
+        },
+        (error)=>{
+
+        }
+      )
+    }
+
+    postAgregarProd(idProducto){
+      this._empresasService.obtenerProductosById(idProducto, this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.productosModelGetId = response.productos;
+        },
+        (err) => {
+          console.log('Hubo un error');
+
+        }
+
+      )
+
+    }
+
+  getSucursales(){
+      this._sucursaleServices.obtenerSucursales(this.token).subscribe(
+        (response) => {
+          this.sucursalModelGet = response.sucursales;
+          console.log(response);
+        },
+        (error) => {
+          console.log(<any>error);
+
+        }
+      )
+    }
+
+  getIdSucursal(idSucursal, stock){
+      this.getIdSucursal = idSucursal
+      console.log(this.getIdSucursal);
+  }
+
+  agregarProd(){
+      console.log(this.getIdSucursal);
+
+      this._empresasService.agregarProductoaSucursal(this.productosModelGetId, this.token, this.getIdSucursal, this.productosModelGetId._id).subscribe(
+
+        (response) => {
+
+          console.log(response);
+          this.productosModelGetId.nombreProducto = "";
+          this.productosModelGetId.precioProducto = 0;
+          this.productosModelGetId.stock = 0;
+        },
+        (err) => {
+
+          console.log('Hubo un error');
+
+        }
+
+      )
+    }
+
+
+
 }
-}
+

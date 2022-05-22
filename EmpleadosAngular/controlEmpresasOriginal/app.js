@@ -2,16 +2,21 @@ const express = require('express');
 const cors = require('cors');
 var app = express();
 
-const UsuarioRutas = require('./src/routes/usuario.router');
-const EmpresaRutas = require('./src/routes/empresa.router');
-const SucursalesRutas = require('./src/routes/sucursales.router')
+// IMPORTACIONES RUTAS
+const UsuarioRutas = require('./src/routes/usuario.routes');
+const CatRutas = require('./src/routes/empresas.routes');
+const SucursalesRutas = require('./src/routes/sucursales.routes');
 
+// MIDDLEWARES -> INTERMEDIARIOS
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// CABECERAS
 app.use(cors());
 
-app.use('/api', UsuarioRutas, EmpresaRutas, SucursalesRutas);
+
+// CARGA DE RUTAS localhost:3000/api/obtenerProductos
+app.use('/api', UsuarioRutas,CatRutas,SucursalesRutas);
 
 
 module.exports = app;

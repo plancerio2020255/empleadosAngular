@@ -1,10 +1,10 @@
-export class Usuario {
-    constructor(
-      public _id: String,
-      public nombre: String,
-      public email: String,
-      public password: String,
-      public rol: String,
-  
-    ){}
-  }
+export class Usuario{
+  constructor(
+    public _id: string,
+    public nombre: string,
+    public email: string,
+    public rol: string,
+    public password: string,
+
+  ){}
+}

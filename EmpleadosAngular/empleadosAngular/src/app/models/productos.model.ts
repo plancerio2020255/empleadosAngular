@@ -6,6 +6,4 @@ export class Productos{
      public precioProducto: Number,
      public stock: Number
   ){}
-
-
 }

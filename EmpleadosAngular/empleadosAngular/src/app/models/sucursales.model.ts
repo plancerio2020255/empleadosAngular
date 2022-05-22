@@ -1,10 +1,16 @@
-export class Sucursales {
+export class Sucursales{
+
   constructor(
     public _id: String,
-    public nombreSucursal: String,
-    public direccionSucursal: String,
-    public vendido: Number,
+    public nombre: String,
+    public telefono: Number,
+    public direccion: String,
+    public productos: [{
+      nombreProducto: String,
+      precioProducto: Number,
+      stock: Number
+    }],
     public idEmpresa: String,
-    public idMunicipio: String
+
   ){}
 }

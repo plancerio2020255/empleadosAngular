@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
         this.getTokenPromesa().then(respuesta=>{
         console.log(response.usuario);
         localStorage.setItem('identidad', JSON.stringify(response.usuario))
-        this._router.navigate(['/empresas'])
+        this._router.navigate(['/'])
 
         });
       },

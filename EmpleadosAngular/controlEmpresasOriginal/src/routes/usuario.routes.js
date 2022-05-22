@@ -5,10 +5,10 @@ const controladorUsuario = require('../controllers/usuario.controller');
 
 const api = express.Router();
 
-
+api.post('/registrarUsuario', controladorUsuario.RegistrarUsuario);
 api.post('/registrar', controladorUsuario.RegistrarAd);
 api.post('/login', controladorUsuario.Login);
-api.post('/registrarUsuario', controladorUsuario.RegistrarUsuario);
+
 
 
 

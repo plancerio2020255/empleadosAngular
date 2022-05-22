@@ -1,64 +1,22 @@
-
-<h1 class="title is-1"align="center" >Login</h1>
-
-<section class="hero is-fullheight-with-navbar">
-  <div class="hero-body">
-<div class="container is-fullheight is-primary">
-	<div class="columns is-centered">
-		<div class="column is-4 is-half">
-			<div class="field">
-				<label class="label">Email</label>
-				<p class="control ">
-					<input class="input" type="email" placeholder="Email"
-
-           name="email" #email="ngModel"
-                              [(ngModel)]="empresasModel.email"
-
-          >
-					<span class="icon is-small is-left">
-						<i class="fas fa-envelope"></i>
-					</span>
-					<span class="icon is-small is-right">
-						<i class="fas fa-check"></i>
-					</span>
-				</p>
-			</div>
-			<div class="field">
-				<label class="label">Contraseña</label>
-				<p class="control">
-					<input class="input" type="password" placeholder="Contraseña"
-
-          name="password" #password="ngModel"
-                              [(ngModel)]="empresasModel.password"
-
-          >
-					<span class="icon is-small is-left">
-						<i class="fas fa-lock"></i>
-					</span>
-				</p>
-			</div>
-
-
-
-			<div class="field">
-				<div class="control">
-					<label class="checkbox">
-						<input type="checkbox">
-						Acepto los terminos y condiciones <a href="#">Terminos y condiciones</a>
-					</label>
-				</div>
-			</div>
-
-			<div class="field is-grouped">
-				<div class="control">
-					<button class="button is-link" (click)="login()">Login</button>
-				</div>
-				<div class="control">
-					<button class="button is-link">Cancelar</button>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="login-box">
+  <h2>Login</h2>
+  <form>
+    <div class="user-box">
+      <input type="text" name="email" #email="ngModel"
+      [(ngModel)]="usuarioModel.email">
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="password" #password="ngModel"
+      [(ngModel)]="usuarioModel.password">
+      <label>Password</label>
+    </div>
+    <a href="#" (click)="login()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Submit
+    </a>
+  </form>
 </div>
-</div>
-</section>

@@ -1,44 +1,34 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" routerLink="/inicio">
-      <span width="112" height="28" class="logo__nav">ADM</span>
-    </a>
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item navbar__options has-text-success-light" routerLink="/eliminarEmpresa">
-        Empresas
-      </a>
-
-      <a class="navbar-item has-text-success-light	navbar__options" routerLink="/agregarSucursales">
-        Sucursales
-      </a>
-
-      <a class="navbar-item has-text-success-light navbar__options" routerLink="">
-        Productos
-      </a>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary" routerLink="/agregarEmpresa">
-            <strong>Registrarse</strong>
-          </a>
-          <a class="button is-light" routerLink="/login">
-            Iniciar sesión
-          </a>
-        </div>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
+        <li class="nav-item">
+          <a class="nav-link" href="/empresas">Empresas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sucursales">Sucursales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/productos">Productos</a>
+        </li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+       
+        
+      </ul>
+      <li >
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
     </div>
   </div>
 </nav>
 
-<!-- <-->

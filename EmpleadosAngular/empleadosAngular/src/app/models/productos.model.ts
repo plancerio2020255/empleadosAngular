@@ -1,9 +1,9 @@
-export class Productos {
+export class Productos{
+
   constructor(
-     public _id: string,
-     public NombreProducto: string,
-     public NombreProveedor: string,
-     public Stock: Number,
-     public idEmpresa: string
+     public _id: String,
+     public nombreProducto: String,
+     public precioProducto: Number,
+     public stock: Number
   ){}
 }

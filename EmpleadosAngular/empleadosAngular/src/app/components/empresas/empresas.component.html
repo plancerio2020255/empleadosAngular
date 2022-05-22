@@ -1,0 +1,184 @@
+<body onload="init()" style="background: url(../../../assets/vid.img/Fondo.jpg) no-repeat; background-size: cover;">
+
+<div class="container">
+  <!-- Button activador Modal Agregar Empresa -->
+  <button id="boton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarEmpresaModal">
+    Agregar Empresa
+  </button>
+
+  <!--<div class="row">
+    <div class="col-12 col-md-4" *ngFor="let empre of empresasModelGet">
+      <div class="card border-success mb-3">
+        <div class="card-header bg-transparent border-success">{{ empre.nombre }}</div>
+        <div class="card-body text-success">
+          <p class="card-text">
+            {{empre.descripcion}}
+          </p>
+        </div>
+        <div class="card-footer text-muted">
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-danger"
+            (click)="deleteEmpresa(empre._id)">Eliminar</button>
+            <button type="button" class="btn btn-secondary">Editar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>-->
+
+  <div   style="padding-top: 1%;"  style="width: auto;"  class="row"
+>
+  <div class="card" class="card" style="width: 15rem;" *ngFor="let empre of empresasModelGet">
+    <img src="../../../assets/vid.img/Empresa.png" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ empre.nombre }}</h5>
+      <p class="card-text">
+        {{empre.descripcion}}
+      </p>
+      <h8 class="card-text">Lugar: {{ empre.direccion }}</h8>
+      <p></p>
+      <h8 class="card-text">Contacto: {{ empre.telefono }}</h8>
+    </div>
+    <div class="card-body">
+      <button type="button" class="btn btn-danger"
+            (click)="deleteEmpresa(empre._id)">Eliminar</button>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasExample" (click)="obtenerEmpresasID(empre._id)">
+              Editar</button>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+
+<!-- Modal Agregar Empresa -->
+<div class="modal fade" id="agregarEmpresaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Empresa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+
+
+          <div class="mg-3">
+            <label for="inputNombre" class="form-label">Nombre Empresa</label>
+            <input type="text" id="inputNombre" class="form-control" name="nombre" #nombre="ngModel"
+            [(ngModel)]="empresasModelPost.nombre">
+          </div>
+
+
+
+
+          <div class="mb-3">
+            <label for="Dire" class="form-label">Dirección</label>
+            <select class="form-select" aria-label="multiple select example" id="Dire" name="Dire" #Dire="ngModel" [(ngModel)]="empresasModelPost.direccion">
+              <option *ngFor="let departamento of departamentos" [value]="departamento.codigo">{{departamento.nombre}}</option>
+            </select>
+          </div>
+
+
+
+          <div class="mb-3">
+            <label for="Tel" class="form-label">Telefono</label>
+            <input type="tel" class="form-control" id="Tel" placeholder="Ingresar el Telefono" name="tel" #tel="ngModel"
+            [(ngModel)]="empresasModelPost.telefono">
+          </div>
+
+
+
+
+          <div class="mg-3">
+            <label for="inputDescripcion" class="form-label">Descripcion</label>
+            <input type="text" id="inputDescripcion" class="form-control" name="descripcion" #descripcion="ngModel"
+            [(ngModel)]="empresasModelPost.descripcion">
+          </div>
+
+
+
+          <div class="mb-3">
+            <label for="TipoEm" class="form-label">Tipo de Empresa</label>
+            <select class="form-select" aria-label="multiple select example" id="TipoEm" name="tipoEmpresa" #tipoEmpresa="ngModel" [(ngModel)]="empresasModelPost.tipoEmpresa">
+              <option *ngFor="let tipo of tipoEmpresas" [value]="tipo.codigo">{{tipo.nombre}}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="postEmpresas()" >Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar-->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Editar Empresa</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form>
+
+
+
+      <div class="mg-3">
+        <label for="inputNombre" class="form-label">Nombre Empresa</label>
+        <input type="text" id="inputNombre" class="form-control" name="nombre" #nombre="ngModel"
+        [(ngModel)]="empresaIDModel.nombre">
+      </div>
+
+
+
+
+
+
+      <div class="mb-3">
+        <label for="Dire" class="form-label">Dirección</label>
+        <select class="form-select" aria-label="multiple select example" id="Dire" name="Dire" #Dire="ngModel" [(ngModel)]="empresaIDModel.direccion">
+          <option *ngFor="let departamento of departamentos" [value]="departamento.codigo">{{departamento.nombre}}</option>
+        </select>
+      </div>
+
+
+
+
+
+      <div class="mb-3">
+        <label for="Tel" class="form-label">Telefono</label>
+        <input type="tel" class="form-control" id="Tel" placeholder="Ingresar el Telefono" name="tel" #tel="ngModel"
+        [(ngModel)]="empresaIDModel.telefono">
+      </div>
+
+
+
+
+      <div class="mg-3">
+        <label for="inputDescripcion" class="form-label">Descripcion</label>
+        <input type="text" id="inputDescripcion" class="form-control" name="descripcion" #descripcion="ngModel"
+        [(ngModel)]="empresaIDModel.descripcion">
+      </div>
+
+
+
+
+
+      <div class="mb-3">
+        <label for="TipoEm" class="form-label">Tipo de Empresa</label>
+        <select class="form-select" aria-label="multiple select example" id="TipoEm" name="tipoEmpresa" #tipoEmpresa="ngModel" [(ngModel)]="empresaIDModel.tipoEmpresa">
+          <option *ngFor="let tipo of tipoEmpresas" [value]="tipo.codigo">{{tipo.nombre}}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success" (click)="editarEmpresa()">Editar Empresa</button>
+
+    </form>
+  </div>
+</div>
+</body>
+

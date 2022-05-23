@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -63,16 +64,28 @@ export class LoginComponent implements OnInit {
         this.getTokenPromesa().then(respuesta=>{
         console.log(response.usuario);
         localStorage.setItem('identidad', JSON.stringify(response.usuario))
-        this._router.navigate(['/'])
-
-        });
+        this._router.navigate([''])
+        })
+        Swal.fire({
+          icon: 'success',
+          title: 'Logeado correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
       },
       (error)=>{
         console.log(<any>error);
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo loguiar',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     );
   }
 
+  
 
 
 }

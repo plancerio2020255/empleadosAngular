@@ -1,9 +1,10 @@
 <body onload="init()" style="background: url(../../../assets/img/Fondo.jpg) no-repeat; background-size: cover;">
 
 <div class="container" >
-  <button id="boton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarEmpresaModal">
+  <button id="boton" type="button" class="card-body" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#agregarEmpresaModal">
     Agregar Empresa
   </button>
+
   <div   style="padding-top: 1%;"  style="width: auto;"  class="row">
   <div class="card" class="card" style="width: 15rem;" *ngFor="let empre of empresasModelGet">
     <img src="../../../assets/img/Empresa.png" class="card-img-top" >
@@ -23,6 +24,10 @@
             aria-controls="offcanvasExample" (click)="obtenerEmpresasID(empre._id)">
               Editar</button>
   </div>
+  <div>
+    <button type="button" class="btn btn-secondary btn-sm">Agregar Sucursal</button>  </div>
+
+
 </div>
 </div>
 </div>
